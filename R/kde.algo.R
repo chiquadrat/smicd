@@ -31,6 +31,7 @@
 #' \code{(15000,Inf)}, then \code{Inf} is replaced by \code{15000*upper}
 #' @param weights any kind of survey or design weights that will be used for the
 #' weighted estimation of the statistical indicators
+#' @param oecd OECD weights for equivalized household size
 #' @return An object of class "kdeAlgo" that provides estimatates for statistical indicators
 #' and optionally, corresponding standard error estimates. Generic
 #' functions such as, \code{\link{print}},
@@ -63,26 +64,28 @@
 #' x=rlnorm(500, meanlog = 8, sdlog = 1)
 #' classes <- c(0,500,1000,1500,2000,2500,3000,4000,5000, 6000,8000,10000, 15000,Inf)
 #' xclass <- cut(x,breaks=classes)
+#' weights <- abs(rnorm(500,0,1))
+#' oecd <- rep(seq(1,6.9,0.3),25)
 #' Indicator <- kdeAlgo(xclass = xclass, classes = classes, burnin = 40,
 #' samples =200)
 #' Indicator_custom <- kdeAlgo(xclass = xclass, classes = classes, burnin = 40,
 #' samples =200, custom_indicator = list(quant5 = function(y, threshold)
 #' {quantile(y, probs = 0.05)}))
-#' weights <- abs(rnorm(500,0,1))
 #' Indicator_weights <- kdeAlgo(xclass = xclass, classes = classes, burnin = 40,
-#' samples =200, weights = weights, custom_indicator = list(quant5 = function(y, threshold,
+#' samples =200, weights = weights, oecd = oecd, custom_indicator = list(quant5 = function(y, threshold,
 #' weights){weighted.quantile(y, probs = 0.05, weights)}))
 
 
 kdeAlgo <- function(xclass, classes, threshold = 0.6 , burnin = 10, samples = 50,
                      bootstrap.se = FALSE, b = 50, boundary = FALSE,
                      bw = "nrd0", evalpoints = 2000, adjust = 1,
-                     custom_indicator = NULL, upper = 3, weights = NULL) {
+                     custom_indicator = NULL, upper = 3, weights = NULL,
+                     oecd = NULL) {
 
-  capture.output(density.est <- dclassICD(xclass = xclass, classes = classes,
+  density.est <- dclassICD(xclass = xclass, classes = classes,
                         burnin = burnin, samples = samples, boundary = boundary,
                         bw = bw, evalpoints = evalpoints, adjust = adjust,
-                        upper = upper, weights = weights))
+                        upper = upper, weights = weights, oecd = oecd)
 
   Indicators.run <- NULL
   for (i in 1:dim(density.est$resultX)[2]) {

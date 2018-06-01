@@ -24,22 +24,7 @@
 plot.kdeAlgo <- function(x, indicator = NULL, ...) {
 
   if(is.null(indicator)){
-#  for (i in 1:dim(x$Point_estimate.run)[1]) {
-#    meanBur <- cumsum(x$Point_estimate.run[i,1:x$burnin]) /
-#      seq_along(x$Point_estimate.run[i,1:x$burnin])
-#    meanSam <- cumsum(x$Point_estimate.run[i,(x$burnin+1):(x$samples+x$burnin)]) /
-#      seq_along(x$Point_estimate.run[i,1:x$samples])
-#    convergence <- c(meanBur,meanSam)
-#    name <- rownames(x$Point_estimate.run)
-#    plot(convergence, xlab = "Iteration step", ylab = name[i],
-#         main = "Convergence")
-#    abline(v = x$burnin)
-#    cat("Press [enter] to continue")
-#    line <- readline()
-#  }
-
-
- for (i in 1:dim(x$Point_estimate.run)[1]) {
+  for (i in 1:dim(x$Point_estimate.run)[1]) {
    name <- rownames(x$Point_estimate.run)
    plot(x$Point_estimate.run[i,], xlab = "Iteration step", ylab = name[i],
         main = "Convergence")
@@ -52,21 +37,7 @@ plot.kdeAlgo <- function(x, indicator = NULL, ...) {
 
 
   if(!is.null(indicator)){
- #   for (i in 1:length(indicator)) {
-#      meanBur <- cumsum(x$Point_estimate.run[indicator[i],1:x$burnin]) /
-#        seq_along(x$Point_estimate.run[indicator[i],1:x$burnin])
-#      meanSam <- cumsum(x$Point_estimate.run[indicator[i],(x$burnin+1):(x$samples+x$burnin)]) /
-#        seq_along(x$Point_estimate.run[indicator[i],1:x$samples])
-#      convergence <- c(meanBur,meanSam)
-#      name <- indicator
-#      plot(convergence, xlab = "Iteration step", ylab = name[i],
-#           main = "Convergence")
-#      abline(v = x$burnin)
-#      cat("Press [enter] to continue")
-#      line <- readline()
-#    }
-
-    for (i in 1:length(indicator)) {
+  for (i in 1:length(indicator)) {
       name <- indicator
       plot(x$Point_estimate.run[indicator[i],], xlab = "Iteration step", ylab = name[i],
            main = "Convergence")

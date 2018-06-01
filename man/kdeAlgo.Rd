@@ -81,7 +81,8 @@ samples =200, custom_indicator = list(quant5 = function(y, threshold)
 {quantile(y, probs = 0.05)}))
 weights <- abs(rnorm(500,0,1))
 Indicator_weights <- kdeAlgo(xclass = xclass, classes = classes, burnin = 40,
-samples =200, weights = weights)
+samples =200, weights = weights, custom_indicator = list(quant5 = function(y, threshold,
+weights){weighted.quantile(y, probs = 0.05, weights)}))
 }
 \references{
 Groß, M., U. Rendtel, T. Schmid, S. Schmon, and N. Tzavidis (2017).

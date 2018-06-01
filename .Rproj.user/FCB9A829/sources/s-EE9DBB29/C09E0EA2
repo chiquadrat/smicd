@@ -5,15 +5,15 @@
     "dirty" : false,
     "encoding" : "UTF-8",
     "folds" : "",
-    "hash" : "0",
+    "hash" : "2563944547",
     "id" : "C09E0EA2",
-    "lastKnownWriteTime" : 1527845633,
-    "last_content_update" : 1527845633196,
+    "lastKnownWriteTime" : 1527850012,
+    "last_content_update" : 1527850012961,
     "path" : "H:/ICD/R/kde.algo.R",
     "project_path" : "R/kde.algo.R",
     "properties" : {
-        "cursorPosition" : "70,33",
-        "scrollLine" : "47"
+        "cursorPosition" : "73,55",
+        "scrollLine" : "63"
     },
     "relative_order" : 1,
     "source_on_save" : false,

@@ -47,6 +47,15 @@ results <- c(results, c.indicator)
     pgap = sum(weights * (x < thresholdW) * (thresholdW - x)
                        / thresholdW) / sw,
     qsr = qsr(x, weights = weights)$value)
+    if (!is.null(custom_indicator)){
+      c.indicator <- NULL
+      for(i in 1:length(custom_indicator)) {
+        c.indicator <- c(c.indicator, custom_indicator[[i]](x, threshold, weights))
+      }
+      names(c.indicator) <- names(custom_indicator)
+      results <- c(results, c.indicator)
+
+    }
   }
 
 return(results)

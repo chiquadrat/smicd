@@ -1,0 +1,22 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1523534204858.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1596171719",
+    "id" : "60229BB9",
+    "lastKnownWriteTime" : 1523536537,
+    "last_content_update" : 1523536537837,
+    "path" : "H:/Doktor2/ICD/R/plot.kdeAlgo.R",
+    "project_path" : "R/plot.kdeAlgo.R",
+    "properties" : {
+        "cursorPosition" : "19,72",
+        "scrollLine" : "0"
+    },
+    "relative_order" : 3,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

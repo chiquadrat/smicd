@@ -1,0 +1,22 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1523534490508.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "4173476140",
+    "id" : "F9C1C16F",
+    "lastKnownWriteTime" : 1523534555,
+    "last_content_update" : 1523534555262,
+    "path" : "H:/Doktor2/ICD/R/plot.sem.R",
+    "project_path" : "R/plot.sem.R",
+    "properties" : {
+        "cursorPosition" : "37,0",
+        "scrollLine" : "14"
+    },
+    "relative_order" : 5,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

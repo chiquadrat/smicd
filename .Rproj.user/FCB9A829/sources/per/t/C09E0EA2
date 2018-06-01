@@ -1,0 +1,22 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1523514409553.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "810882828",
+    "id" : "C09E0EA2",
+    "lastKnownWriteTime" : 1523534248,
+    "last_content_update" : 1523534248448,
+    "path" : "H:/Doktor2/ICD/R/kde.algo.R",
+    "project_path" : "R/kde.algo.R",
+    "properties" : {
+        "cursorPosition" : "70,35",
+        "scrollLine" : "51"
+    },
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

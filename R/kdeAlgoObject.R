@@ -1,0 +1,45 @@
+#' Fitted kdeAlgoObject
+#'
+#' An object of class "kdeAlgo" that represents the estimated
+#' statistical indicators and the estimated standard errors.
+#' Objects of this class have methods for the generic functions
+#' \code{\link{print}} and \code{\link{plot}}.
+#'
+#' @return
+#' An object of class "kdeAlgo" is a list containing at least the following
+#' components.
+#' \item{\code{Point_estimate}}{the esimated statistical indicators:
+#' Mean, Gini, Head-Count Ratio, Quantiles (10\%, 25\%, 50\%, 75\%,
+#' 90\%), Poverty-Gap, Quintile-Share Ratio and if specified the selected
+#' custom indicators.}
+#' \item{\code{Standard_Error}}{if \code{bootstrap.se = TRUE},
+#' the standard errors for the statistical indicator are estimated}
+#' \item{\code{Mestimates}}{kde object containing the corrected density estimate,
+#' as in \code{\link[Kernelheaping]{dclass}}}
+#' \item{\code{resultDensity}}{Estimated Density for each iteration,
+#' as in \code{\link[Kernelheaping]{dclass}}}
+#' \item{\code{resultX}}{true latent values X estimates,
+#' as in \code{\link[Kernelheaping]{dclass}}}
+#' \item{\code{xclass}}{classified values; factor with ordered factor values,
+#' as in \code{\link[Kernelheaping]{dclass}}}
+#' \item{\code{gridx}}{Grid on which density is evaluated,
+#' as in \code{\link[Kernelheaping]{dclass}}}
+#' \item{\code{classes}}{classes; Inf as last value is allowed,
+#' as in \code{\link[Kernelheaping]{dclass}}}
+#' \item{\code{burnin}}{burn-in sample size,
+#' as in \code{\link[Kernelheaping]{dclass}}}
+#' \item{\code{samples}}{sampling iteration size,
+#' as in \code{\link[Kernelheaping]{dclass}}}
+#' \item{\code{Point_estimates.run}}{the esimated statistical indicators:
+#' Mean, Gini, Head-Count Ratio, Quantiles (10\%, 25\%, 50\%, 75\%,
+#' 90\%), Poverty-Gap, Quintile-Share Ratio for each iteration run of the
+#' KDE-algorithm}
+#' @references
+#' Groß, M., U. Rendtel, T. Schmid, S. Schmon, and N. Tzavidis (2017).
+#' Estimating the density of ethnic minorities and aged people in Berlin: Multivariate
+#' Kernel Density Estimation applied to sensitive georeferenced administrative data
+#' protected via measurement error. Journal of the Royal Statistical Society: Series A
+#' (Statistics in Society), 180.
+#' @seealso \code{\link{ICD}},  \code{\link[Kernelheaping]{dclass}}
+#' @name kdeAlgoObject
+NULL

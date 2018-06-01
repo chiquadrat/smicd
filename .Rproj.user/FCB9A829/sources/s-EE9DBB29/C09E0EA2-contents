@@ -21,9 +21,16 @@
 #' \code{\link[Kernelheaping]{dclass}}
 #' @param adjust the user can multiply the bandwidth by a certain factor such
 #' that bw=adjust*bw as in \code{\link[stats]{density}}
-#' @param threshold used for the Head-Count Ratio and Poverty Gap, default is 60\% of the median e.g. \code{threshold=0.6}
-#' @param custom_indicator a list of functions containing the indicators to be calculated additionaly.
-#' Such functions must only depend on the target variable \code{y} and the \code{threshold}. Defaults to \code{NULL}.
+#' @param threshold used for the Head-Count Ratio and Poverty Gap, default is 60\%
+#' of the median e.g. \code{threshold=0.6}
+#' @param custom_indicator a list of functions containing the indicators to be
+#' calculated additionaly.
+#' Such functions must only depend on the target variable \code{y} and the
+#' \code{threshold}. Defaults to \code{NULL}.
+#' @param upper if the upper bound of the upper interval is \code{Inf} e.g.
+#' \code{(15000,Inf)}, then \code{Inf} is replaced by \code{15000*upper}
+#' @param weights any kind of survey or design weights that will be used for the
+#' weighted estimation of the statistical indicators
 #' @return An object of class "kdeAlgo" that provides estimatates for statistical indicators
 #' and optionally, corresponding standard error estimates. Generic
 #' functions such as, \code{\link{print}},
@@ -45,39 +52,47 @@
 #' @seealso \code{\link[Kernelheaping]{dclass}}, \code{\link{print.kdeAlgo}},
 #' \code{\link{plot.kdeAlgo}}
 #' @export
-#' @importFrom Kernelheaping dclass
 #' @importFrom ineq ineq
+#' @importFrom spatstat weighted.quantile
+#' @importFrom laeken gini
+#' @importFrom laeken arpr
+#' @importFrom laeken qsr
 #' @import formula.tools
 #' @return NULL
 #' @examples
 #' x=rlnorm(500, meanlog = 8, sdlog = 1)
-#' classes <- c(0,500,1000,1500,2000,2500,3000,4000,5000, 6000,8000,10000,
-#' 15000,Inf)
+#' classes <- c(0,500,1000,1500,2000,2500,3000,4000,5000, 6000,8000,10000, 15000,Inf)
 #' xclass <- cut(x,breaks=classes)
 #' Indicator <- kdeAlgo(xclass = xclass, classes = classes, burnin = 40,
 #' samples =200)
 #' Indicator_custom <- kdeAlgo(xclass = xclass, classes = classes, burnin = 40,
 #' samples =200, custom_indicator = list(quant5 = function(y, threshold)
 #' {quantile(y, probs = 0.05)}))
+#' weights <- abs(rnorm(500,0,1))
+#' Indicator_weights <- kdeAlgo(xclass = xclass, classes = classes, burnin = 40,
+#' samples =200, weights = weights)
 
 
 kdeAlgo <- function(xclass, classes, threshold = 0.6 , burnin = 10, samples = 50,
                      bootstrap.se = FALSE, b = 50, boundary = FALSE,
                      bw = "nrd0", evalpoints = 2000, adjust = 1,
-                     custom_indicator = NULL) {
+                     custom_indicator = NULL, upper = 3, weights = NULL) {
 
-  capture.output(density.est <- dclass(xclass = xclass, classes = classes,
+  capture.output(density.est <- dclassICD(xclass = xclass, classes = classes,
                         burnin = burnin, samples = samples, boundary = boundary,
-                        bw = bw, evalpoints = evalpoints, adjust = adjust))
+                        bw = bw, evalpoints = evalpoints, adjust = adjust,
+                        upper = upper, weights = weights))
 
-  Indicators.run <- apply(density.est$resultX,2,
-                          function(x) {indicators.est(x, threshold ,
-                                                      custom_indicator)})
-  Indicators <- rowMeans(apply(density.est$resultX[,-c(1:burnin)],2,
-                                               function(x) {
-                                                 indicators.est(x,
-                                                                threshold,
-                                                           custom_indicator)}))
+  Indicators.run <- NULL
+  for (i in 1:dim(density.est$resultX)[2]) {
+    Indicators.run <- cbind(Indicators.run,indicators.est(x=density.est$resultX[,i],
+                                                          threshold = threshold,
+                                                          custom_indicator = custom_indicator,
+                                                          weights = density.est$resultW[,i]))
+
+  }
+  Indicators <- rowMeans(Indicators.run)
+
   if (bootstrap.se==TRUE) {
     Standard.Error <- standardError.est(b = b, xclass = xclass,
                                         classes = classes, burnin = burnin,

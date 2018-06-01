@@ -1,0 +1,236 @@
+#
+# Application Micro Census
+#
+library(haven)
+library(car)
+library(lme4)
+library(truncnorm, lib.loc="H:/Doktor2/libWin")
+library(operator.tools,lib.loc="H:/Doktor2/libWin")
+library(formula.tools, lib.loc="H:/Doktor2/libWin")
+library(MuMIn)
+library(laeken)
+library(Hmisc)
+library(spatstat)
+
+# Read data
+suf_2012 <- read_dta("H:/Mikrozensus/daten/suf_2012.dta")
+suf_2012 <- suf_2012[,c("EF707", "EF952","EF1","EF683","EF20")]
+data <- data.frame(as.matrix(suf_2012))
+
+# Prepare data
+name <- c("Income", "Weight", "State", "Children", "Persons")
+names(data) <- name
+
+data[data==-8] <- NA    
+data[data==-7] <- NA    
+data[data==-1] <- NA    
+data[data==50] <- NA    
+data[data==90] <- NA    
+data[data==99] <- NA    
+
+data <- data[complete.cases(data),]
+
+summary(data$Income)
+summary(data$Weight)
+summary(data$State)
+table(data$Children)
+summary(data$Persons)
+
+################################################################################
+#
+# Load and Save data
+#
+################################################################################
+
+load("H:/Doktor2/Direct_Grouped_Paper/R-Code/Data/census.RData")
+setwd("C:/Users/Paul/Desktop/Doktor2/Direct_Grouped_Paper/R-Code")
+
+################################################################################
+
+# Estimate OECD weights
+# Persons ist metrische 1 = 1 Person und 27 = 27 Personen
+# 
+data$OECD <- 1 + 0.3*data$Children + 0.5 * (data$Persons - data$Children - 1) 
+summary(data$OECD)
+
+#
+# Estimate ?quivalenzklassen
+#
+
+classes <- c(1,150,300,500,700,900,1100,1300,1500,1700,2000,2300,2600,2900,3200,
+             3600,4000,4500,5000,5500, 6000,7500,10000,18000,Inf)
+
+data$LB <- recode(data$Income, "1 = classes[1]; 2 = classes[2]; 3 = classes[3]; 
+                  4 = classes[4]; 5 = classes[5]; 6 = classes[6]; 7 = classes[7]; 
+                  8 = classes[8]; 9 = classes[9]; 10 = classes[10]; 11 = classes[11]; 
+                  12 = classes[12]; 13 = classes[13]; 14 = classes[14]; 15 = classes[15]; 
+                  16 = classes[16]; 17 = classes[17]; 18 = classes[18]; 19 = classes[19]; 
+                  20 = classes[20]; 21 = classes[21]; 22 = classes[22]; 23 = classes[23]; 
+                  24 = classes[24]")
+
+data$UB <- recode(data$Income, "1 = classes[2]; 2 = classes[3]; 3 = classes[4]; 
+                  4 = classes[5]; 5 = classes[6]; 6 = classes[7]; 7 = classes[8]; 
+                  8 = classes[9]; 9 = classes[10]; 10 = classes[11]; 11 = classes[12]; 
+                  12 = classes[13]; 13 = classes[14]; 14 = classes[15]; 15 = classes[16]; 
+                  16 = classes[17]; 17 = classes[18]; 18 = classes[19]; 19 = classes[20]; 
+                  20 = classes[21]; 21 = classes[22]; 22 = classes[23]; 23 = classes[24]; 
+                  24 = classes[25]")
+
+data$UB[data$UB == Inf] <- 3 * classes[24]
+
+data$LBadj <- data$LB/data$OECD
+data$UBadj <- data$UB/data$OECD
+
+data$NIntervals <- paste0(round(data$LBadj, digits = 0), round(data$UBadj, digits = 0))
+
+# Subset data for faster implementation
+#data <- data[1:100000,]
+
+################################################################################
+#
+# Some descriptive statistics
+library(xtable)
+nrow(data)
+ssState <- data.frame(as.vector(by(data,data$State, function(x){nrow(x)})))
+rownames(ssState) <- c("Schleswig-Holstein",
+                       "Hamburg",
+                       "Lower Saxony", 
+                       "Bremen", 
+                       "North Rhine-Westphalia", 
+                       "Hesse", 
+                       "Rhineland-Palatinate", 
+                       "Baden-W?rttemberg",
+                       "Bavaria",
+                       "Saarland",
+                       "Berlin",
+                       "Brandenburg",
+                       "Mecklenburg-Vorpommern",
+                       "Saxony",
+                       "Saxony-Anhalt",
+                       "Thuringia")
+
+xtable(data.frame(ssState))
+length(unique(data$NIntervals))
+
+################################################################################
+#
+# Germany
+#
+################################################################################
+
+# Settings Algorithm
+burnin = 2
+samples = 3
+evalpoints = 4000
+boot = 5
+
+#
+# With whole MC 5 Iterations = 1 Min --> 240 Iterations = 48 Min
+# With  boot = 100 -> 3,3 Tage 
+#
+
+
+# Save results
+list.names <- c("Germany", "1", "2", "3","4" ,"5","6", "7", "8", "9", "10",
+                "11", "12","13","14","15","16")
+
+list.results <- vector("list", length(list.names))
+names(list.results) <- list.names
+
+list.names <- c("HCR", "se.HCR", "Gini", "se.Gini", "Mean", "se.Mean", "Median", 
+                "se.Median", "Quant0.1", "se.Quant0.1", "Quant0.25", "se.Quant0.25", 
+                "Quant0.75", "se.Quant0.75", "Quant0.9", "se.Quant0.9", "PGap",
+                "se.PGap", "QSR", "se.QSR")
+
+list.True <- vector("list", length = length(list.names))
+names(list.True) <- list.names
+
+for (i in 1:length(list.results)) {
+  list.results[[i]] <- list.True
+}
+
+
+source("DclassMicro.R")
+DirectMicro <- dclassMicro(data = data, burnin = burnin, samples = samples, 
+                           evalpoints = evalpoints)
+list.results$Germany$HCR <-  mean(DirectMicro$hcr[(burnin+1):(burnin+samples)])
+list.results$Germany$Gini <-  mean(DirectMicro$gini[(burnin+1):(burnin+samples)])
+list.results$Germany$Mean <-  mean(DirectMicro$mean[(burnin+1):(burnin+samples)])
+list.results$Germany$Median <-  mean(DirectMicro$quant50[(burnin+1):(burnin+samples)])
+list.results$Germany$Quant0.1 <-  mean(DirectMicro$quant10[(burnin+1):(burnin+samples)])
+list.results$Germany$Quant0.25 <-  mean(DirectMicro$quant25[(burnin+1):(burnin+samples)])
+list.results$Germany$Quant0.75 <-  mean(DirectMicro$quant75[(burnin+1):(burnin+samples)])
+list.results$Germany$Quant0.9 <-  mean(DirectMicro$quant90[(burnin+1):(burnin+samples)])
+list.results$Germany$PGap <-  mean(DirectMicro$pgap[(burnin+1):(burnin+samples)])
+list.results$Germany$QSR <-  mean(DirectMicro$qsr[(burnin+1):(burnin+samples)])
+Result.Germany <- DirectMicro
+print("Germany")
+
+source("BootstrapMicro.R")
+std.error <- boot.se(B = boot, data = data, burnin = burnin, samples = samples,
+                     evalpoints = evalpoints)
+list.results$Germany$se.HCR <-  unname(std.error["hcr"])
+list.results$Germany$se.Gini <-  unname(std.error["gini"])
+list.results$Germany$se.Mean <-  unname(std.error["mean"])
+list.results$Germany$se.Median <-  unname(std.error["quant50"])
+list.results$Germany$se.Quant0.1 <-  unname(std.error["quant10"])
+list.results$Germany$se.Quant0.25 <-  unname(std.error["quant25"])
+list.results$Germany$se.Quant0.75 <-  unname(std.error["quant75"])
+list.results$Germany$se.Quant0.9 <-  unname(std.error["quant90"])
+list.results$Germany$se.PGap <-  unname(std.error["pgap"])
+list.results$Germany$se.QSR <-  unname(std.error["qsr"])
+print("Germany.se")
+
+################################################################################
+#
+# The other federal states
+#
+################################################################################
+
+land <- c("1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13",
+          "14", "15", "16")
+for(i in 1:16) {
+  source("DclassMicro.R")
+  DirectMicro <- dclassMicro(data = data[data$State==i, ], burnin = burnin, samples = samples, 
+                             evalpoints = evalpoints)
+  list.results[[land[i]]]$HCR <-  mean(DirectMicro$hcr[(burnin+1):(burnin+samples)])
+  list.results[[land[i]]]$Gini <-  mean(DirectMicro$gini[(burnin+1):(burnin+samples)])
+  list.results[[land[i]]]$Mean <-  mean(DirectMicro$mean[(burnin+1):(burnin+samples)])
+  list.results[[land[i]]]$Median <-  mean(DirectMicro$quant50[(burnin+1):(burnin+samples)])
+  list.results[[land[i]]]$Quant0.1 <-  mean(DirectMicro$quant10[(burnin+1):(burnin+samples)])
+  list.results[[land[i]]]$Quant0.25 <-  mean(DirectMicro$quant25[(burnin+1):(burnin+samples)])
+  list.results[[land[i]]]$Quant0.75 <-  mean(DirectMicro$quant75[(burnin+1):(burnin+samples)])
+  list.results[[land[i]]]$Quant0.9 <-  mean(DirectMicro$quant90[(burnin+1):(burnin+samples)])
+  list.results[[land[i]]]$PGap <-  mean(DirectMicro$pgap[(burnin+1):(burnin+samples)])
+  list.results[[land[i]]]$QSR <-  mean(DirectMicro$qsr[(burnin+1):(burnin+samples)])
+  print(paste("State", i, "of 16"))
+  
+  source("BootstrapMicro.R")
+  std.error <- boot.se(B = boot, data = data[data$State==i, ], burnin = burnin, samples = samples,
+                       evalpoints = evalpoints)
+  list.results[[land[i]]]$se.HCR <-  unname(std.error["hcr"])
+  list.results[[land[i]]]$se.Gini <-  unname(std.error["gini"])
+  list.results[[land[i]]]$se.Mean <-  unname(std.error["mean"])
+  list.results[[land[i]]]$se.Median <-  unname(std.error["quant50"])
+  list.results[[land[i]]]$se.Quant0.1 <-  unname(std.error["quant10"])
+  list.results[[land[i]]]$se.Quant0.25 <-  unname(std.error["quant25"])
+  list.results[[land[i]]]$se.Quant0.75 <-  unname(std.error["quant75"])
+  list.results[[land[i]]]$se.Quant0.9 <-  unname(std.error["quant90"])
+  list.results[[land[i]]]$se.PGap <-  unname(std.error["pgap"])
+  list.results[[land[i]]]$se.QSR <-  unname(std.error["qsr"])
+  print(paste("State.se", i, "of 16"))
+}
+
+rm(list=setdiff(ls(), c("list.results", "Result.Germany")))
+save.image("C:/Users/Paul/Desktop/Doktor2/Direct_Grouped_Paper/R-Code/Data/ResultApplicationMC.RData")
+
+
+
+
+
+
+
+
+
+
+

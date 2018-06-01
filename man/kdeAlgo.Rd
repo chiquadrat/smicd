@@ -6,7 +6,8 @@
 \usage{
 kdeAlgo(xclass, classes, threshold = 0.6, burnin = 10, samples = 50,
   bootstrap.se = FALSE, b = 50, boundary = FALSE, bw = "nrd0",
-  evalpoints = 2000, adjust = 1, custom_indicator = NULL)
+  evalpoints = 2000, adjust = 1, custom_indicator = NULL, upper = 3,
+  weights = NULL)
 }
 \arguments{
 \item{xclass}{interval censored values; factor with ordered factor values,
@@ -15,7 +16,8 @@ as in \code{\link[Kernelheaping]{dclass}}}
 \item{classes}{numeric vector of classes; Inf as last value is allowed,
 as in \code{\link[Kernelheaping]{dclass}}}
 
-\item{threshold}{used for the Head-Count Ratio and Poverty Gap, default is 60\% of the median e.g. \code{threshold=0.6}}
+\item{threshold}{used for the Head-Count Ratio and Poverty Gap, default is 60\%
+of the median e.g. \code{threshold=0.6}}
 
 \item{burnin}{burn-in sample size, as in \code{\link[Kernelheaping]{dclass}}}
 
@@ -38,8 +40,16 @@ as in \code{\link[Kernelheaping]{dclass}}}
 \item{adjust}{the user can multiply the bandwidth by a certain factor such
 that bw=adjust*bw as in \code{\link[stats]{density}}}
 
-\item{custom_indicator}{a list of functions containing the indicators to be calculated additionaly.
-Such functions must only depend on the target variable \code{y} and the \code{threshold}. Defaults to \code{NULL}.}
+\item{custom_indicator}{a list of functions containing the indicators to be
+calculated additionaly.
+Such functions must only depend on the target variable \code{y} and the
+\code{threshold}. Defaults to \code{NULL}.}
+
+\item{upper}{if the upper bound of the upper interval is \code{Inf} e.g.
+\code{(15000,Inf)}, then \code{Inf} is replaced by \code{15000*upper}}
+
+\item{weights}{any kind of survey or design weights that will be used for the
+weighted estimation of the statistical indicators}
 }
 \value{
 An object of class "kdeAlgo" that provides estimatates for statistical indicators
@@ -62,14 +72,16 @@ pseudo samples of each iteration run of the KDE-algorithm.
 }
 \examples{
 x=rlnorm(500, meanlog = 8, sdlog = 1)
-classes <- c(0,500,1000,1500,2000,2500,3000,4000,5000, 6000,8000,10000,
-15000,Inf)
+classes <- c(0,500,1000,1500,2000,2500,3000,4000,5000, 6000,8000,10000, 15000,Inf)
 xclass <- cut(x,breaks=classes)
 Indicator <- kdeAlgo(xclass = xclass, classes = classes, burnin = 40,
 samples =200)
 Indicator_custom <- kdeAlgo(xclass = xclass, classes = classes, burnin = 40,
 samples =200, custom_indicator = list(quant5 = function(y, threshold)
 {quantile(y, probs = 0.05)}))
+weights <- abs(rnorm(500,0,1))
+Indicator_weights <- kdeAlgo(xclass = xclass, classes = classes, burnin = 40,
+samples =200, weights = weights)
 }
 \references{
 Groß, M., U. Rendtel, T. Schmid, S. Schmon, and N. Tzavidis (2017).

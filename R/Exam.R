@@ -20,6 +20,6 @@
 #' }
 #' @references Goldstein, H., Rasbash, J., et al (1993). A multilevel analysis
 #' of school examination results. Oxford Review of Education 19: 425-433
-#' @source \url{http://multilevel.ioe.ac.uk/softrev/exam.html}
 #' @docType data
-"Exam"
+#' @name Exam
+NULL

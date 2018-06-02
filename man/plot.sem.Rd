@@ -30,14 +30,6 @@ step
 is plotted with a histogramm of the interval censored true dependent variable
 in the back.
 }
-\examples{
-data <- Exam
-classes <- c(1,1.5,2.5,3.5,4.5,5.5,6.5,7.7,8.5, Inf)
-data$examsc.class<- cut(data$examsc, classes)
-model <- semLm(formula = examsc.class ~ standLRT + schavg, data = data,
-classes = classes, burnin = 4, samples = 10)
-plot(model)
-}
 \references{
 Walter, P., Gross, M., Schmid, T. and Tzavidis, N. (2017). Estimation of
 Linear and Non-Linear Indicators

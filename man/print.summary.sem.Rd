@@ -4,7 +4,7 @@
 \alias{print.summary.sem}
 \title{Prints a summary.sem Object}
 \usage{
-\method{print}{summary.sem}(x, ...)
+print.summary.sem(x, ...)
 }
 \arguments{
 \item{x}{an object of class "summary.sem".}

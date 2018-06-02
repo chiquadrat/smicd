@@ -14,13 +14,7 @@
 #' \item{two R2 measures}{a multiple and adjusted R-squared in case of an
 #' object of class \code{"sem","lm"} and a marginal and conditional R-squared in
 #' case of an object of class \code{"sem","lme"}}
-#' @examples
-#' data <- Exam
-#' classes <- c(1,1.5,2.5,3.5,4.5,5.5,6.5,7.7,8.5, Inf)
-#' data$examsc.class<- cut(data$examsc, classes)
-#' model <- semLm(formula = examsc.class ~ standLRT + schavg, data = data,
-#' classes = classes, burnin = 4, samples = 10)
-#' summary(model)
+
 
 summary.sem <- function(object,...){
 

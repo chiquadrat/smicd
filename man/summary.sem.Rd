@@ -4,7 +4,7 @@
 \alias{summary.sem}
 \title{Summarizing Linear and Linear Mixed Models with SEM}
 \usage{
-\method{summary}{sem}(object, ...)
+summary.sem(object, ...)
 }
 \arguments{
 \item{object}{an object of class \code{"sem"}.}
@@ -25,12 +25,4 @@ case of an object of class \code{"sem","lme"}}
 }
 \description{
 \code{summary} method for class \code{"sem"}.
-}
-\examples{
-data <- Exam
-classes <- c(1,1.5,2.5,3.5,4.5,5.5,6.5,7.7,8.5, Inf)
-data$examsc.class<- cut(data$examsc, classes)
-model <- semLm(formula = examsc.class ~ standLRT + schavg, data = data,
-classes = classes, burnin = 4, samples = 10)
-summary(model)
 }

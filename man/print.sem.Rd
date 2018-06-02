@@ -4,7 +4,7 @@
 \alias{print.sem}
 \title{Prints a sem Object}
 \usage{
-\method{print}{sem}(x, ...)
+print.sem(x, ...)
 }
 \arguments{
 \item{x}{an object of class \code{"sem"}.}

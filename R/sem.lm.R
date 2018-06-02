@@ -63,16 +63,21 @@
 #' @importFrom utils capture.output setTxtProgressBar tail txtProgressBar
 #' @return NULL
 #' @examples
+#' \dontrun{
+#' # Load and prepare data
 #' data <- Exam
 #' classes <- c(1,1.5,2.5,3.5,4.5,5.5,6.5,7.7,8.5, Inf)
 #' data$examsc.class<- cut(data$examsc, classes)
+#'
+#' # Run model with default settings
 #' model <- semLm(formula = examsc.class ~ standLRT + schavg, data = data,
-#' classes = classes, burnin = 10, samples = 40)
+#' classes = classes)
 #' summary(model)
+#' }
 
 
-semLm <- function(formula, data, classes, burnin = 2, samples = 5, trafo = "None",
-                   adjust = 2, bootstrap.se = FALSE, b = 10) {
+semLm <- function(formula, data, classes, burnin = 40, samples = 200, trafo = "None",
+                   adjust = 2, bootstrap.se = FALSE, b = 100) {
 
   call <- match.call()
 

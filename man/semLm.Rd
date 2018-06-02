@@ -4,8 +4,8 @@
 \alias{semLm}
 \title{Linear Regression with Interval Censored Dependent Variable}
 \usage{
-semLm(formula, data, classes, burnin = 2, samples = 5, trafo = "None",
-  adjust = 2, bootstrap.se = FALSE, b = 10)
+semLm(formula, data, classes, burnin = 40, samples = 200, trafo = "None",
+  adjust = 2, bootstrap.se = FALSE, b = 100)
 }
 \arguments{
 \item{formula}{an object of class \code{formula}, as in
@@ -70,12 +70,17 @@ interval censored dependent variable. The object \code{pseudo.y} returns the
 pseudo samples of each iteration step of the SEM-algorithm.
 }
 \examples{
+\dontrun{
+# Load and prepare data
 data <- Exam
 classes <- c(1,1.5,2.5,3.5,4.5,5.5,6.5,7.7,8.5, Inf)
 data$examsc.class<- cut(data$examsc, classes)
+
+# Run model with default settings
 model <- semLm(formula = examsc.class ~ standLRT + schavg, data = data,
-classes = classes, burnin = 10, samples = 40)
+classes = classes)
 summary(model)
+}
 }
 \references{
 Walter, P., Gross, M., Schmid, T. and Tzavidis, N. (2017). Estimation of

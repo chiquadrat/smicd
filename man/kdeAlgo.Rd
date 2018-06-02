@@ -4,9 +4,9 @@
 \alias{kdeAlgo}
 \title{Estimation of Statistical Indicators from Interval Censored Data}
 \usage{
-kdeAlgo(xclass, classes, threshold = 0.6, burnin = 10, samples = 50,
-  bootstrap.se = FALSE, b = 50, boundary = FALSE, bw = "nrd0",
-  evalpoints = 2000, adjust = 1, custom_indicator = NULL, upper = 3,
+kdeAlgo(xclass, classes, threshold = 0.6, burnin = 80, samples = 400,
+  bootstrap.se = FALSE, b = 100, boundary = FALSE, bw = "nrd0",
+  evalpoints = 4000, adjust = 1, custom_indicator = NULL, upper = 3,
   weights = NULL, oecd = NULL)
 }
 \arguments{
@@ -73,19 +73,26 @@ proxy for the interval censored variable. The object \code{resultX} returns the
 pseudo samples of each iteration run of the KDE-algorithm.
 }
 \examples{
+\dontrun{
+# Generate data
 x=rlnorm(500, meanlog = 8, sdlog = 1)
 classes <- c(0,500,1000,1500,2000,2500,3000,4000,5000, 6000,8000,10000, 15000,Inf)
 xclass <- cut(x,breaks=classes)
 weights <- abs(rnorm(500,0,1))
 oecd <- rep(seq(1,6.9,0.3),25)
-Indicator <- kdeAlgo(xclass = xclass, classes = classes, burnin = 40,
-samples =200)
-Indicator_custom <- kdeAlgo(xclass = xclass, classes = classes, burnin = 40,
-samples =200, custom_indicator = list(quant5 = function(y, threshold)
+
+# Estimate statistical indicators with default settings
+Indicator <- kdeAlgo(xclass = xclass, classes = classes)
+
+# Include custom indicators
+Indicator_custom <- kdeAlgo(xclass = xclass, classes = classes,
+custom_indicator = list(quant5 = function(y, threshold)
 {quantile(y, probs = 0.05)}))
-Indicator_weights <- kdeAlgo(xclass = xclass, classes = classes, burnin = 40,
-samples =200, weights = weights, oecd = oecd, custom_indicator = list(quant5 = function(y, threshold,
-weights){weighted.quantile(y, probs = 0.05, weights)}))
+
+# Indclude survey and oecd weights
+Indicator_weights <- kdeAlgo(xclass = xclass, classes = classes,
+weights = weights, oecd = oecd)
+}
 }
 \references{
 Groß, M., U. Rendtel, T. Schmid, S. Schmon, and N. Tzavidis (2017).

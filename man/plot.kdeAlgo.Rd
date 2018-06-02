@@ -23,15 +23,6 @@ Also, convergence plots are given for all estimated statistical indicators.
 The estimated indicator is plotted against the iteration step of the KDE-Algorithm.
 A vertical line indicates the end of the burn-in period.
 }
-\examples{
-x=rlnorm(500, meanlog = 8, sdlog = 1)
-classes <- c(0,500,1000,1500,2000,2500,3000,4000,5000,
-6000,8000,10000,15000,Inf)
-xclass <- cut(x,breaks=classes)
-Indicator <- kdeAlgo(xclass = xclass, classes = classes, burnin = 40,
-samples =200)
-plot(Indicator)
-}
 \seealso{
 \code{\link{kdeAlgoObject}}, \code{\link{kdeAlgo}}
 }

@@ -19,12 +19,6 @@ Levels are bottom 25\%, mid 50\%, and top 25\%}
 \item{type}{School type - levels are Mxd and Sngl.}
 \item{student}{Student id (within school) - a factor}
 }}
-\source{
-\url{http://multilevel.ioe.ac.uk/softrev/exam.html}
-}
-\usage{
-Exam
-}
 \description{
 Exam scores of 4,059 students from 65 schools in Inner London, as in
 \code{\link[mlmRev]{Exam}}.
@@ -33,4 +27,3 @@ Exam scores of 4,059 students from 65 schools in Inner London, as in
 Goldstein, H., Rasbash, J., et al (1993). A multilevel analysis
 of school examination results. Oxford Review of Education 19: 425-433
 }
-\keyword{datasets}

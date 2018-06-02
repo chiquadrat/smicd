@@ -13,14 +13,7 @@
 #' @export
 #' @importFrom graphics abline hist lines plot
 #' @importFrom weights wtd.hist
-#' @examples
-#' x=rlnorm(500, meanlog = 8, sdlog = 1)
-#' classes <- c(0,500,1000,1500,2000,2500,3000,4000,5000,
-#' 6000,8000,10000,15000,Inf)
-#' xclass <- cut(x,breaks=classes)
-#' Indicator <- kdeAlgo(xclass = xclass, classes = classes, burnin = 40,
-#' samples =200)
-#' plot(Indicator)
+
 
 plot.kdeAlgo <- function(x, indicator = NULL, ...) {
 
@@ -49,7 +42,7 @@ plot.kdeAlgo <- function(x, indicator = NULL, ...) {
   classes <- x$classes
   xclass <- x$xclass
   if (max(classes) == Inf) {
-    classes[length(classes)] = upper * classes[length(classes) -
+    classes[length(classes)] = x$upper * classes[length(classes) -
                                                  1]
   }
   classmeans <- sapply(1:(length(classes) - 1), function(x) 1/2 *

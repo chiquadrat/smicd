@@ -59,18 +59,25 @@
 #' @importFrom mvtnorm rmvnorm
 #' @return NULL
 #' @examples
+#' \dontrun{
+#' # Load and prepare data
 #' data <- Exam
 #' classes <- c(1,1.5,2.5,3.5,4.5,5.5,6.5,7.7,8.5, Inf)
 #' data$examsc.class<- cut(data$examsc, classes)
+#'
+#' # Run model with random intercept and default settings
 #' model1 <- semLme(formula = examsc.class ~ standLRT + schavg + (1|school),
-#' data = data, classes = classes, burnin = 4, samples = 10)
+#' data = data, classes = classes)
 #' summary(model1)
+#'
+#' # Run model with random intercept + random slope with default settings
 #' model2 <- semLme(formula = examsc.class ~ standLRT + schavg +
-#' (standLRT|school), data = data, classes = classes, burnin = 4, samples = 10)
+#' (standLRT|school), data = data, classes = classes)
 #' summary(model2)
+#' }
 
-semLme <- function(formula, data, classes, burnin = 2, samples = 5, trafo = "None",
-                    adjust = 2, bootstrap.se = FALSE, b = 10) {
+semLme <- function(formula, data, classes, burnin = 40, samples = 200, trafo = "None",
+                    adjust = 2, bootstrap.se = FALSE, b = 100) {
 
   call <- match.call()
 

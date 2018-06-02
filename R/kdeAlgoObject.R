@@ -32,8 +32,13 @@
 #' as in \code{\link[Kernelheaping]{dclass}}}
 #' \item{\code{Point_estimates.run}}{the esimated statistical indicators:
 #' Mean, Gini, Head-Count Ratio, Quantiles (10\%, 25\%, 50\%, 75\%,
-#' 90\%), Poverty-Gap, Quintile-Share Ratio for each iteration run of the
+#' 90\%), Poverty-Gap, Quintile-Share Ratio and if specified the selected
+#' custom indicators for each iteration run of the
 #' KDE-algorithm}
+#' \item{\code{oecd}}{the oecd weights used for the estimation of the equivalized
+#' household income}
+#' \item{\code{weights}}{any kind of survey or design weights that will be used
+#' for the weighted estimation of the statistical indicators}
 #' @references
 #' Groß, M., U. Rendtel, T. Schmid, S. Schmon, and N. Tzavidis (2017).
 #' Estimating the density of ethnic minorities and aged people in Berlin: Multivariate

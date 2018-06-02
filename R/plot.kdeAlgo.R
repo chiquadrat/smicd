@@ -12,6 +12,7 @@
 #' @seealso \code{\link{kdeAlgoObject}}, \code{\link{kdeAlgo}}
 #' @export
 #' @importFrom graphics abline hist lines plot
+#' @importFrom weights wtd.hist
 #' @examples
 #' x=rlnorm(500, meanlog = 8, sdlog = 1)
 #' classes <- c(0,500,1000,1500,2000,2500,3000,4000,5000,
@@ -34,8 +35,6 @@ plot.kdeAlgo <- function(x, indicator = NULL, ...) {
  }
 
 }
-
-
   if(!is.null(indicator)){
   for (i in 1:length(indicator)) {
       name <- indicator
@@ -47,17 +46,44 @@ plot.kdeAlgo <- function(x, indicator = NULL, ...) {
     }
 
   }
+  classes <- x$classes
+  xclass <- x$xclass
+  if (max(classes) == Inf) {
+    classes[length(classes)] = upper * classes[length(classes) -
+                                                 1]
+  }
+  classmeans <- sapply(1:(length(classes) - 1), function(x) 1/2 *
+                         (classes[x + 1] + classes[x]))
+  levels(xclass) <- classmeans
+  lengths = as.vector(table(xclass))
+  xclass <- as.numeric(as.character(xclass))
 
-  maxhist <- max(hist(x$xclass,breaks=x$classes, main = "Estimated Density",
+  if(is.null(oecd) & is.null(weights)) {
+  maxhist <- max(hist(xclass,breaks=classes, main = "Estimated Density",
                       xlab = "x", ylab = "f(x)",
-                      xlim = c(x$classes[1],x$classes[length(x$classes)]/2))$density)
+                      xlim = c(classes[1],classes[length(classes)]/2))$density)
   maxden <- max(x$Mestimates)
   maxylim <- max(maxhist, maxden)
-
-  hist(x$xclass,breaks=x$classes, main = "Estimated Density", xlab = "x",
+  hist(xclass,breaks=classes, main = "Estimated Density", xlab = "x",
        ylab = "f(x)",
-       xlim = c(x$classes[1],x$classes[length(x$classes)]/2), ylim = c(0,maxylim))
+       xlim = c(classes[1],classes[length(classes)]/2), ylim = c(0,maxylim))
   lines(x$Mestimates~x$gridx,col="purple",lwd=2)
-
-
+  }
+  if(!is.null(oecd)){
+    maxylim <- max(x$Mestimates)
+    plot(x$Mestimates~x$gridx,col="purple",lwd=2, type="l")
+  }
+  if(is.null(oecd)&!is.null(weights)) {
+    maxhist <- max(wtd.hist(xclass,breaks=classes, main = "Estimated Density",
+                        xlab = "x", ylab = "f(x)",
+                        xlim = c(classes[1],classes[length(classes)]/2),
+                   weight = x$weights)$density)
+    maxden <- max(x$Mestimates)
+    maxylim <- max(maxhist, maxden)
+    wtd.hist(xclass,breaks=classes, main = "Estimated Density", xlab = "x",
+         ylab = "f(x)",
+         xlim = c(classes[1],classes[length(classes)]/2), ylim = c(0,maxylim),
+         weight = x$weights)
+    lines(x$Mestimates~x$gridx,col="purple",lwd=2)
+  }
 }

@@ -3,7 +3,7 @@
 # The function estimates the standard errors of the indicators
 
 standardError.est <- function(b, xclass, classes, burnin, samples, boundary, bw, evalpoints, adjust, threshold,
-                              custom_indicator){
+                              custom_indicator, upper, weights, oecd){
 
   pb <- txtProgressBar(min = 1, max = b, style = 3)
   results.kernel <- NULL
@@ -11,13 +11,22 @@ standardError.est <- function(b, xclass, classes, burnin, samples, boundary, bw,
     Sys.sleep(0.1)
     boot_samp <- xclass[sample(length(xclass), size=length(xclass), replace = TRUE)]
 
-    capture.output(densityEst <- dclass(xclass = xclass, classes = classes,
+    density.est <- dclassICD(xclass = xclass, classes = classes,
                          burnin = burnin, samples = samples, boundary = boundary, bw = bw,
-                         evalpoints = evalpoints, adjust = adjust))
+                         evalpoints = evalpoints, adjust = adjust, upper = upper,
+                         weights= weights, oecd = oecd)
 
-    results.kernel <- rbind(results.kernel, rowMeans(apply(densityEst$resultX[,-c(1:burnin)],2,
-                                                           function(x) {indicators.est(x,threshold,
-                                                                                       custom_indicator)})))
+    Indicators.run <- NULL
+    for (j in 1:dim(density.est$resultX)[2]) {
+      Indicators.run <- cbind(Indicators.run,indicators.est(x=density.est$resultX[,j],
+                                                            threshold = threshold,
+                                                            custom_indicator = custom_indicator,
+                                                            weights = density.est$resultW[,j]))
+
+    }
+    results.kernel <- rbind(results.kernel,rowMeans(Indicators.run))
+
+
     setTxtProgressBar(pb, i)
   }
 

@@ -15,7 +15,8 @@ Import:
  MuMIn,
  mvtnorm,
  spatstat,
- laeken
+ laeken,
+ weights
 Suggests:
  knitr
 RoxygenNote: 6.0.1
@@ -26,4 +27,5 @@ Imports: ineq,
     formula.tools,
     mvtnorm,
     spatstat,
-    laeken
+    laeken,
+    weights

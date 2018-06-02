@@ -72,8 +72,7 @@
 #' samples =200, custom_indicator = list(quant5 = function(y, threshold)
 #' {quantile(y, probs = 0.05)}))
 #' Indicator_weights <- kdeAlgo(xclass = xclass, classes = classes, burnin = 40,
-#' samples =200, weights = weights, oecd = oecd, custom_indicator = list(quant5 = function(y, threshold,
-#' weights){weighted.quantile(y, probs = 0.05, weights)}))
+#' samples =200, weights = weights, oecd = oecd)
 
 
 kdeAlgo <- function(xclass, classes, threshold = 0.6 , burnin = 10, samples = 50,
@@ -81,7 +80,7 @@ kdeAlgo <- function(xclass, classes, threshold = 0.6 , burnin = 10, samples = 50
                      bw = "nrd0", evalpoints = 2000, adjust = 1,
                      custom_indicator = NULL, upper = 3, weights = NULL,
                      oecd = NULL) {
-
+  Standard.Error = NULL
   density.est <- dclassICD(xclass = xclass, classes = classes,
                         burnin = burnin, samples = samples, boundary = boundary,
                         bw = bw, evalpoints = evalpoints, adjust = adjust,
@@ -103,26 +102,19 @@ kdeAlgo <- function(xclass, classes, threshold = 0.6 , burnin = 10, samples = 50
                                 samples = samples, boundary = boundary, bw = bw,
                                 evalpoints = evalpoints, adjust = adjust,
                                 threshold = threshold,
-                                custom_indicator = custom_indicator)
+                                custom_indicator = custom_indicator, upper = upper,
+                                weights = weights, oecd = oecd)
+  }
 
     results <- list(Point_estimate = Indicators, Standard_Error = Standard.Error,
                     Mestimates = density.est$Mestimates,
                     resultDensity = density.est$resultDensity,
                     resultX = density.est$resultX,
-                    xclass = density.est$xclass, gridx = density.est$gridx,
-                    classes = density.est$classes, burnin = burnin,
-                    samples = samples,
-                    Point_estimate.run = Indicators.run)
-  } else {
-    results <- list(Point_estimate = Indicators, Standard_Error = NULL,
-                    Mestimates = density.est$Mestimates,
-                    resultDensity = density.est$resultDensity,
-                    resultX = density.est$resultX,
-                    xclass = density.est$xclass, gridx = density.est$gridx,
-                    classes = density.est$classes, burnin = burnin,
-                    samples = samples,
-                    Point_estimate.run = Indicators.run)
-  }
+                    xclass = xclass, gridx = density.est$gridx,
+                    classes = classes, burnin = burnin,
+                    samples = samples, Point_estimate.run = Indicators.run,
+                    oecd = oecd, weights = weights)
+
   class(results) <- "kdeAlgo"
 return(results)
 }

@@ -59,29 +59,18 @@ summary.sem <- function(object,...){
       randomIntercept <- strsplit(as.character(object$formula[[3]][3]), "\\|")[[1]][2]
       randomIntercept <- strsplit(randomIntercept, ")")
       randomIntercept <- trimws(randomIntercept, "l")
-      Groups = c(randomIntercept,
-                 rownames(object$VaCov)[2],
-                 "Residual")
-      Name = c("(Intercept)", "", "")
-      Variance = c(as.numeric(object$VaCov[1,1]),
-                   as.numeric(object$VaCov[2,2]),
-                   as.numeric(object$sigmae)^2)
-      Std.Dev. = c(sqrt(as.numeric(as.numeric(object$VaCov[1,1]))),
-                   sqrt(as.numeric(as.numeric(object$VaCov[2,2]))),
-                   object$sigmae)
 
-      ans$random <- cbind(Groups, Name, Variance, Std.Dev)
 
-      #ans$random <- data.frame(Groups = c(randomIntercept,
-      #                                    rownames(object$VaCov)[2],
-      #                                    "Residual"),
-      #                         Name = c("(Intercept)", "", ""),
-      #                         Variance = c(as.numeric(object$VaCov[1,1]),
-      #                                      as.numeric(object$VaCov[2,2]),
-      #                                      as.numeric(object$sigmae)^2),
-      #                        Std.Dev. = c(sqrt(as.numeric(as.numeric(object$VaCov[1,1]))),
-      #                                      sqrt(as.numeric(as.numeric(object$VaCov[2,2]))),
-      #                                      object$sigmae))
+      ans$random <- data.frame(Groups = c(randomIntercept,
+                                          rownames(object$VaCov)[2],
+                                          "Residual"),
+                               Name = c("(Intercept)", "", ""),
+                               Variance = c(as.numeric(object$VaCov[1,1]),
+                                            as.numeric(object$VaCov[2,2]),
+                                            as.numeric(object$sigmae)^2),
+                              Std.Dev. = c(sqrt(as.numeric(as.numeric(object$VaCov[1,1]))),
+                                            sqrt(as.numeric(as.numeric(object$VaCov[2,2]))),
+                                            object$sigmae))
 
       rownames(ans$random) <- c()
     }

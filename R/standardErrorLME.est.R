@@ -29,14 +29,15 @@ standardErrorLME.est <- function(formula, data, classes, burnin, samples, trafo,
                                                 ,sigma = VaCov), 2,
                                         function(x) {rep(x,table(boot_data[,tail(all.vars(formula), n=1)])[j])}))
       }
+
     if(is.na(nameRS)) {boot_data$ynew <- mu + p.ranef[,1] + rnorm(nrow(boot_data), 0 , sigmae)}
     if(!is.na(nameRS)) {boot_data$ynew <- mu + p.ranef[,1] + p.ranef[,2]*boot_data[,name.RS]+
         rnorm(nrow(boot_data), 0 , sigmae)}
-
+    # Hier Rücktransformieren
       boot_data$ynew[boot_data$ynew<classes[1]] <- classes[1]+.Machine$double.eps
       boot_data$ynew[boot_data$ynew>classes[length(classes)]] <-
           classes[length(classes)]+.Machine$double.eps
-      boot_data$examsc.class <- cut(boot_data$ynew, classes)
+      boot_data$examsc.class <- cut(boot_data$ynew, classes) # Stimmt das mit examsc.
 
       capture.output(SEM <- semLme(formula = formula, data = boot_data,
                      classes = classes, burnin = burnin, samples = samples,

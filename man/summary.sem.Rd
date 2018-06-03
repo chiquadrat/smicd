@@ -4,7 +4,7 @@
 \alias{summary.sem}
 \title{Summarizing Linear and Linear Mixed Models with SEM}
 \usage{
-summary.sem(object, ...)
+\method{summary}{sem}(object, ...)
 }
 \arguments{
 \item{object}{an object of class \code{"sem"}.}

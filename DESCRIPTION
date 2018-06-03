@@ -1,4 +1,4 @@
-Package: ICD
+Package: smicd
 Type: Package
 Title: Statistical Methods for Interval Censored Data
 Version: 0.1.0
@@ -19,4 +19,6 @@ Imports: ineq,
     mvtnorm,
     spatstat,
     laeken,
-    weights
+    weights,
+    mlmRev,
+    Kernelheaping

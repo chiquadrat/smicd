@@ -17,6 +17,8 @@
 
 plot.kdeAlgo <- function(x, indicator = NULL, ...) {
 
+  oecd <- NULL
+
   if(is.null(indicator)){
   for (i in 1:dim(x$Point_estimate.run)[1]) {
    name <- rownames(x$Point_estimate.run)

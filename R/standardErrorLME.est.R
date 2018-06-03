@@ -40,7 +40,7 @@ standardErrorLME.est <- function(formula, data, classes, burnin, samples, trafo,
 
       capture.output(SEM <- semLme(formula = formula, data = boot_data,
                      classes = classes, burnin = burnin, samples = samples,
-                     trafo = trafo, adjust = adjust, bootstrap.se = FALSE, b = 10))
+                     trafo = trafo, adjust = adjust, bootstrap.se = FALSE))
 
       coef <- rbind(coef, SEM$coef)
       setTxtProgressBar(pb, i)

@@ -5,6 +5,8 @@
 
 dclassICD <- function (xclass, classes, burnin, samples, boundary,
           bw, evalpoints, adjust, upper, weights, oecd){
+
+  dbc <- NULL
 if(is.null(oecd)){
   xclassF <- xclass
   if (max(classes) == Inf) {

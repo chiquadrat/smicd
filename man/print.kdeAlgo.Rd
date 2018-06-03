@@ -4,7 +4,7 @@
 \alias{print.kdeAlgo}
 \title{Prints a kdeAlgo Object}
 \usage{
-print.kdeAlgo(x, ...)
+\method{print}{kdeAlgo}(x, ...)
 }
 \arguments{
 \item{x}{an object of class \code{"kdeAlgo"}}

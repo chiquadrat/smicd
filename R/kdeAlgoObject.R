@@ -47,6 +47,6 @@
 #' Kernel Density Estimation applied to sensitive georeferenced administrative data
 #' protected via measurement error. Journal of the Royal Statistical Society: Series A
 #' (Statistics in Society), 180.
-#' @seealso \code{\link{ICD}},  \code{\link[Kernelheaping]{dclass}}
+#' @seealso \code{\link{smicd}},  \code{\link[Kernelheaping]{dclass}}
 #' @name kdeAlgoObject
 NULL

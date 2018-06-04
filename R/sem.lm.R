@@ -49,7 +49,7 @@
 #' @references
 #' Walter, P., Gross, M., Schmid, T. and Tzavidis, N. (2017). Estimation of
 #' Linear and Non-Linear Indicators
-#' using Interval Censored Income Data. School of Business & Economics,
+#' using Interval Censored Income Data. FU-Berlin School of Business & Economics,
 #' Discussion
 #' Paper.
 #' @seealso \code{\link[stats]{lm}}, \code{\link{print.sem}},

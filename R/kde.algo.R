@@ -42,6 +42,10 @@
 #' proxy for the interval censored variable. The object \code{resultX} returns the
 #' pseudo samples of each iteration run of the KDE-algorithm.
 #' @references
+#' Walter, P., Weimer, K. (2018). Estimating Poverty and Inequality Indicators
+#' using Interval Censored Income Data from the German Microcensus.
+#' FU-Berlin School of Business & Economics, Discussion
+#' Paper. \cr \cr
 #' Groß, M., U. Rendtel, T. Schmid, S. Schmon, and N. Tzavidis (2017).
 #' Estimating the density of ethnic minorities and aged people in Berlin:
 #' Multivariate

@@ -36,7 +36,11 @@ An overview of all currently provided functions can be requested by
 }
 \references{
 Walter, P., Gross, M., Schmid, T. and Tzavidis, N. (2017). Estimation of Linear and Non-Linear Indicators
-using Interval Censored Income Data. School of Business & Economics, Discussion
+using Interval Censored Income Data. FU-Berlin School of Business & Economics, Discussion
+Paper. \cr \cr
+#' Walter, P., Weimer, K. (2018). Estimating Poverty and Inequality Indicators
+using Interval Censored Income Data from the German Microcensus.
+FU-Berlin School of Business & Economics, Discussion
 Paper. \cr \cr
 Groß, M., U. Rendtel, T. Schmid, S. Schmon, and N. Tzavidis (2017).
 Estimating the density of ethnic minorities and aged people in Berlin: Multivariate

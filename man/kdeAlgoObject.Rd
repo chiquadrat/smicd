@@ -54,5 +54,5 @@ protected via measurement error. Journal of the Royal Statistical Society: Serie
 (Statistics in Society), 180.
 }
 \seealso{
-\code{\link{ICD}},  \code{\link[Kernelheaping]{dclass}}
+\code{\link{smicd}},  \code{\link[Kernelheaping]{dclass}}
 }

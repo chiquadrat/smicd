@@ -59,6 +59,6 @@ using Interval Censored Income Data. School of Business & Economics, Discussion
 Paper.
 }
 \seealso{
-\code{\link{ICD}},  \code{\link[stats]{lm}}, \code{\link[lme4]{lmer}},
+\code{\link{smicd}},  \code{\link[stats]{lm}}, \code{\link[lme4]{lmer}},
 \code{\link[MuMIn]{r.squaredGLMM}}
 }

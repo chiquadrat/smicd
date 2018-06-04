@@ -18,7 +18,7 @@ convergence plots are plotted, e.g. \code{c("mean", "gini")}}
 Convergence and density plots.
 }
 \description{
-Plots the esimtated density from the interval censored variable.
+Plots the estimtated density from the interval censored variable.
 Also, convergence plots are given for all estimated statistical indicators.
 The estimated indicator is plotted against the iteration step of the KDE-Algorithm.
 A vertical line indicates the end of the burn-in period.

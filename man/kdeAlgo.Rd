@@ -41,7 +41,7 @@ as in \code{\link[Kernelheaping]{dclass}}}
 that bw=adjust*bw as in \code{\link[stats]{density}}}
 
 \item{custom_indicator}{a list of functions containing the indicators to be
-calculated additionaly.
+calculated additionally.
 Such functions must only depend on the target variable \code{y} and the
 \code{threshold}. Defaults to \code{NULL}.}
 
@@ -54,7 +54,7 @@ weighted estimation of the statistical indicators}
 \item{oecd}{OECD weights for equivalized household size}
 }
 \value{
-An object of class "kdeAlgo" that provides estimatates for statistical indicators
+An object of class "kdeAlgo" that provides estimates for statistical indicators
 and optionally, corresponding standard error estimates. Generic
 functions such as, \code{\link{print}},
 \code{\link{plot}}, and \code{\link{summary}} have methods that can be used
@@ -63,9 +63,9 @@ of components of objects of class "kdeAlgo".
 }
 \description{
 The function applies an iterative kernel density
-algorithm for the estimation of a variaty of statistical indicators
+algorithm for the estimation of a variety of statistical indicators
 (e.g. mean, median, quantiles, gini) from interval censored data. The estimation
-of the standard errors is fasciliated by a non-parametric bootstrap.
+of the standard errors is facilitated by a non-parametric bootstrap.
 }
 \details{
 The statistical indicators are estimated using pseudo samples as

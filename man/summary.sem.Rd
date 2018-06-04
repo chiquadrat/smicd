@@ -17,7 +17,7 @@ components:
 \item{call}{a list containing an image of the function call that produced the
             object.}
 \item{coefficients}{a table that returns the estimation parameters and the
-standard erros and confidence intervals in case that the standard erros are
+standard errors and confidence intervals in case that the standard erros are
 estimated.}
 \item{two R2 measures}{a multiple and adjusted R-squared in case of an
 object of class \code{"sem","lm"} and a marginal and conditional R-squared in

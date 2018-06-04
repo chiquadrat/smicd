@@ -10,7 +10,7 @@ semLm(formula, data, classes, burnin = 40, samples = 200, trafo = "None",
 \arguments{
 \item{formula}{an object of class \code{formula}, as in
 \code{\link[stats]{lm}}. The
-dependent variable is measuread as interval censored values; factor with
+dependent variable is measured as interval censored values; factor with
 ordered factor values}
 
 \item{data}{a data frame containing the variables of the model}
@@ -26,7 +26,7 @@ logarithmic transformation is chosen, the minimum interval bound must be
 \item{samples}{the number of additional iterations of the SEM-algorithm
 for parameter estimation}
 
-\item{trafo}{transformation of the dependent variable to fulfil the model
+\item{trafo}{transformation of the dependent variable to fulfill the model
 assumptions
   \itemize{
   \item "log" for Logarithmic transformation

@@ -6,7 +6,7 @@
 \value{
 An object of class "kdeAlgo" is a list containing at least the following
 components.
-\item{\code{Point_estimate}}{the esimated statistical indicators:
+\item{\code{Point_estimate}}{the estimated statistical indicators:
 Mean, Gini, Head-Count Ratio, Quantiles (10\%, 25\%, 50\%, 75\%,
 90\%), Poverty-Gap, Quintile-Share Ratio and if specified the selected
 custom indicators.}
@@ -28,12 +28,12 @@ as in \code{\link[Kernelheaping]{dclass}}}
 as in \code{\link[Kernelheaping]{dclass}}}
 \item{\code{samples}}{sampling iteration size,
 as in \code{\link[Kernelheaping]{dclass}}}
-\item{\code{Point_estimates.run}}{the esimated statistical indicators:
+\item{\code{Point_estimates.run}}{the estimated statistical indicators:
 Mean, Gini, Head-Count Ratio, Quantiles (10\%, 25\%, 50\%, 75\%,
 90\%), Poverty-Gap, Quintile-Share Ratio and if specified the selected
 custom indicators for each iteration run of the
 KDE-algorithm}
-\item{\code{oecd}}{the oecd weights used for the estimation of the equivalized
+\item{\code{oecd}}{the oecd weights used for the estimation of the equivalised
 household income}
 \item{\code{weights}}{any kind of survey or design weights that will be used
 for the weighted estimation of the statistical indicators}

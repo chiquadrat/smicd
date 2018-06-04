@@ -9,11 +9,11 @@ parameters are only estimated for liner mixed regression models (and vice versa)
 \item{\code{pseudo.y}}{a matrix containing the pseudo samples of the interval
 censored variable from each iteration}
 \item{\code{coef}}{the estimated coefficients (fixed effects) from the regression model}
-\item{\code{ranef}}{the estimated rnadom effects from the regression model}
+\item{\code{ranef}}{the estimated random effects from the regression model}
 \item{\code{sigmae}}{estimated variance  \eqn{\sigma_e}}
 \item{\code{VaVoc}}{estimated covariance matrix of the random effects}
-\item{\code{se}}{bootstraped standard error of the coefficients}
-\item{\code{ci}}{bootstraped 95\% confidence interval for the coefficients}
+\item{\code{se}}{bootstrapped standard error of the coefficients}
+\item{\code{ci}}{bootstrapped 95\% confidence interval for the coefficients}
 \item{\code{lambda}}{estimated lambda for the Box-Cox transformation}
 \item{\code{bootstraps}}{number of bootstrap iterations for the estimation
 of the standard errors}
@@ -22,14 +22,14 @@ of the standard errors}
 Generalized mixed-effect models, as in \code{\link[MuMIn]{r.squaredGLMM}}}
 \item{\code{r2c}}{estimated conditional coefficient of determination for
 Generalized mixed-effect models, as in \code{\link[MuMIn]{r.squaredGLMM}}}
-\item{\code{icc}}{estimated interclass corelation coefficient}
+\item{\code{icc}}{estimated interclass correlation coefficient}
 \item{\code{adj.r2}}{estimated adjusted coefficient of determination}
 \item{\code{formula}}{an object of class \code{formula}, as in \code{\link[stats]{lm}} or
 \code{\link[lme4]{lmer}}}
 \item{\code{transformation}}{the specified transformation "log" for logarithmic
 and "bc" for Box-Cox transformation}
 \item{\code{n.classes}}{the number of classes, the dependent variable is censored to}
-\item{\code{conv.coef}}{estimated coefficients for each iteration run of the SEM-algorothm}
+\item{\code{conv.coef}}{estimated coefficients for each iteration run of the SEM-algorithm}
 \item{\code{conv.sigmae}}{estimated variance  \eqn{\sigma_e} for each iteration run of the SEM-algorothm}
 \item{\code{conv.VaCov}}{estimated covariance  matrix
 of the random effects for each iteration run of the SEM-algorithm}

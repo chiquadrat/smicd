@@ -1,9 +1,9 @@
 #' @title Estimation of Statistical Indicators from Interval Censored Data
 #'
 #' @description The function applies an iterative kernel density
-#' algorithm for the estimation of a variaty of statistical indicators
+#' algorithm for the estimation of a variety of statistical indicators
 #' (e.g. mean, median, quantiles, gini) from interval censored data. The estimation
-#' of the standard errors is fasciliated by a non-parametric bootstrap.
+#' of the standard errors is facilitated by a non-parametric bootstrap.
 #' @param xclass interval censored values; factor with ordered factor values,
 #' as in \code{\link[Kernelheaping]{dclass}}
 #' @param classes numeric vector of classes; Inf as last value is allowed,
@@ -24,7 +24,7 @@
 #' @param threshold used for the Head-Count Ratio and Poverty Gap, default is 60\%
 #' of the median e.g. \code{threshold=0.6}
 #' @param custom_indicator a list of functions containing the indicators to be
-#' calculated additionaly.
+#' calculated additionally.
 #' Such functions must only depend on the target variable \code{y} and the
 #' \code{threshold}. Defaults to \code{NULL}.
 #' @param upper if the upper bound of the upper interval is \code{Inf} e.g.
@@ -32,7 +32,7 @@
 #' @param weights any kind of survey or design weights that will be used for the
 #' weighted estimation of the statistical indicators
 #' @param oecd OECD weights for equivalized household size
-#' @return An object of class "kdeAlgo" that provides estimatates for statistical indicators
+#' @return An object of class "kdeAlgo" that provides estimates for statistical indicators
 #' and optionally, corresponding standard error estimates. Generic
 #' functions such as, \code{\link{print}},
 #' \code{\link{plot}}, and \code{\link{summary}} have methods that can be used

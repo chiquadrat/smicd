@@ -11,7 +11,7 @@
 #' A vertical line indicates the end of the burn-in period. Furthermore, the
 #' estimated density of the simulated dependent variable of the last iteration
 #' step
-#' is plotted with a histogramm of the interval censored true dependent variable
+#' is plotted with a histogram of the interval censored true dependent variable
 #' in the back.
 #' @param x an object of type "sem", typical result of \code{\link{semLm}} or
 #' \code{\link{semLme}}.

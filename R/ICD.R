@@ -3,7 +3,7 @@
 #' The package \pkg{smicd} supports the estimation of linear and mixed linear regression
 #' models (random slope and random intercept models)
 #' with interval censored dependent variable. Parameter estimates are obtain
-#' by a stochastic expectation maximaziation (SEM) algorithm (\cite{Walter et al. 2017}).
+#' by a stochastic expectation maximization (SEM) algorithm (\cite{Walter et al. 2017}).
 #' Standard errors are estimated by a non-parametric bootstrap in the linear
 #' regression model and by a parametric bootstrap in the mixed linear regression
 #' model. To handle departures

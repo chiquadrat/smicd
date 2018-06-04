@@ -7,7 +7,7 @@
 #' by a non-parametric bootstrap.
 #' @param formula an object of class \code{formula}, as in
 #' \code{\link[stats]{lm}}. The
-#' dependent variable is measuread as interval censored values; factor with
+#' dependent variable is measured as interval censored values; factor with
 #' ordered factor values
 #' @param data a data frame containing the variables of the model
 #' @param classes numeric vector of classes; \code{-Inf} as first and
@@ -18,7 +18,7 @@
 #' @param burnin the number of burn-in iterations of the SEM-algorithm
 #' @param samples the number of additional iterations of the SEM-algorithm
 #' for parameter estimation
-#' @param trafo transformation of the dependent variable to fulfil the model
+#' @param trafo transformation of the dependent variable to fulfill the model
 #' assumptions
 #'   \itemize{
 #'   \item "log" for Logarithmic transformation

@@ -80,10 +80,9 @@ semLme <- function(formula, data, classes, burnin = 40, samples = 200, trafo = "
                     adjust = 2, bootstrap.se = FALSE, b = 100) {
 
   call <- match.call()
-
+  o.classes = classes
   o.data = data
   o.formula = formula
-  o.classes = classes
   lambda <- result_lambda <- b.lambda <- m.lambda <- se <- ci <- NULL
 
   if (trafo=="log"){classes <- log.est(y = classes)}
@@ -169,7 +168,8 @@ semLme <- function(formula, data, classes, burnin = 40, samples = 200, trafo = "
                                                                VaCov = parameter.final.ma$VaCov,
                                                                nameRI = names(ranef(regclass)),
                                                                nameRS = names(ranef(regclass)[[1]])[2],
-                                                               regmodell = regclass)
+                                                               regmodell = regclass,
+                                                               lambda = m.lambda)
 
   se <- result_se$se
   ci <- result_se$ci

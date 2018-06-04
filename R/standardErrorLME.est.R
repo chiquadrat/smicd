@@ -4,7 +4,7 @@
 
 standardErrorLME.est <- function(formula, data, classes, burnin, samples, trafo,
                                 adjust, b, coef, sigmae, VaCov, nameRI, nameRS,
-                                regmodell){
+                                regmodell, lambda){
 
     # Fixed effect prediction to find mu
     boot_data <- data
@@ -18,6 +18,8 @@ standardErrorLME.est <- function(formula, data, classes, burnin, samples, trafo,
     name.RI <- nameRI
     # Get name from random  slope
     name.RS <- nameRS
+    # Get name of dependent variable from formula
+    name.dep <- all.vars(formula)[1]
 
     coef <- NULL
     pb <- txtProgressBar(min = 1, max = b, style = 3)
@@ -33,11 +35,20 @@ standardErrorLME.est <- function(formula, data, classes, burnin, samples, trafo,
     if(is.na(nameRS)) {boot_data$ynew <- mu + p.ranef[,1] + rnorm(nrow(boot_data), 0 , sigmae)}
     if(!is.na(nameRS)) {boot_data$ynew <- mu + p.ranef[,1] + p.ranef[,2]*boot_data[,name.RS]+
         rnorm(nrow(boot_data), 0 , sigmae)}
-    # Hier Rücktransformieren
+
+      # Hier die Daten rücktransformieren
+      if (trafo=="log"){boot_data$ynew <- exp(boot_data$ynew)}
+      if (trafo=="bc") {rueck <- boxcox.lme.est(dat=boot_data, lambda = lambda, inverse = T)
+                        boot_data$ynew <- rueck[[1]]}
+
+      ##
       boot_data$ynew[boot_data$ynew<classes[1]] <- classes[1]+.Machine$double.eps
       boot_data$ynew[boot_data$ynew>classes[length(classes)]] <-
           classes[length(classes)]+.Machine$double.eps
-      boot_data$examsc.class <- cut(boot_data$ynew, classes) # Stimmt das mit examsc.
+
+
+      assign(paste0("boot_data$",name.dep), cut(boot_data$ynew, classes))
+      #boot_data$examsc.class <- cut(boot_data$ynew, classes) # Stimmt das mit examsc.
 
       capture.output(SEM <- semLme(formula = formula, data = boot_data,
                      classes = classes, burnin = burnin, samples = samples,

@@ -38,7 +38,7 @@ standardErrorLME.est <- function(formula, data, classes, burnin, samples, trafo,
 
       # Hier die Daten rücktransformieren
       if (trafo=="log"){boot_data$ynew <- exp(boot_data$ynew)}
-      if (trafo=="bc") {rueck <- boxcox.lme.est(dat=boot_data, lambda = lambda, inverse = T)
+      if (trafo=="bc") {rueck <- boxcox.lme.est(dat=boot_data$ynew, lambda = lambda, inverse = T)
                         boot_data$ynew <- rueck[[1]]}
 
       ##

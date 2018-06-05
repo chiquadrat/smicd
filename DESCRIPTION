@@ -4,7 +4,7 @@ Title: Statistical Methods for Interval Censored Data
 Version: 1.0.0
 Author: Paul Walter
 Maintainer: Paul Walter <paul.walter@fu-berlin.de>
-Description: This package provides statistical methods for interval censored (grouped) data.
+Description: Functions that provide statistical methods for interval censored (grouped) data.
 License: GPL-2
 Encoding: UTF-8
 LazyData: true
@@ -23,4 +23,4 @@ Imports: ineq,
     weights,
     mlmRev,
     Kernelheaping
-VignetteBuilder: knitr
+

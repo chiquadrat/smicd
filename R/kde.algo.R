@@ -67,7 +67,7 @@
 #' @import formula.tools
 #' @return NULL
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' # Generate data
 #' x=rlnorm(500, meanlog = 8, sdlog = 1)
 #' classes <- c(0,500,1000,1500,2000,2500,3000,4000,5000, 6000,8000,10000, 15000,Inf)
@@ -86,6 +86,14 @@
 #' # Indclude survey and oecd weights
 #' Indicator_weights <- kdeAlgo(xclass = xclass, classes = classes,
 #' weights = weights, oecd = oecd)
+#' } \dontshow{
+#' # Generate data
+#' x=rlnorm(500, meanlog = 8, sdlog = 1)
+#' classes <- c(0,500,1000,1500,2000,2500,3000,4000,5000, 6000,8000,10000, 15000,Inf)
+#' xclass <- cut(x,breaks=classes)
+#'
+#' # Estimate statistical indicators
+#' Indicator <- kdeAlgo(xclass = xclass, classes = classes, burnin = 10, samples = 40)
 #' }
 
 

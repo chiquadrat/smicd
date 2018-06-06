@@ -63,7 +63,7 @@
 #' @importFrom utils capture.output setTxtProgressBar tail txtProgressBar
 #' @return NULL
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' # Load and prepare data
 #' data <- Exam
 #' classes <- c(1,1.5,2.5,3.5,4.5,5.5,6.5,7.7,8.5, Inf)
@@ -72,6 +72,16 @@
 #' # Run model with default settings
 #' model <- semLm(formula = examsc.class ~ standLRT + schavg, data = data,
 #' classes = classes)
+#' summary(model)
+#' } \dontshow{
+#' # Load and prepare data
+#' data <- Exam
+#' classes <- c(1,1.5,2.5,3.5,4.5,5.5,6.5,7.7,8.5, Inf)
+#' data$examsc.class<- cut(data$examsc, classes)
+#'
+#' # Run model with default settings
+#' model <- semLm(formula = examsc.class ~ standLRT + schavg, data = data,
+#' classes = classes, burnin = 4, samples = 10)
 #' summary(model)
 #' }
 

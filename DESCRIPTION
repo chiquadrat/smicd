@@ -4,7 +4,7 @@ Title: Statistical Methods for Interval Censored Data
 Version: 1.0.0
 Author: Paul Walter
 Maintainer: Paul Walter <paul.walter@fu-berlin.de>
-Description: Functions that provide statistical methods for interval censored (grouped) data. The package supports the estimation of linear and linear mixed regression models with interval censored dependent variables. Parameter estimates are obtained by a stochastic expectation maximization algorithm. Furthermore, the package enables the direct (without covariates) estimation of statistical indicators from interval censored data via an iterative kernel density algorithm. Survey and OECD weights can be included into the direct estimation (see, Groß, M., U. Rendtel, T. Schmid, S. Schmon, and N. Tzavidis (2017)<doi:10.1111/rssa.12179>).
+Description: Functions that provide statistical methods for interval censored (grouped) data. The package supports the estimation of linear and linear mixed regression models with interval censored dependent variables. Parameter estimates are obtained by a stochastic expectation maximization algorithm. Furthermore, the package enables the direct (without covariates) estimation of statistical indicators from interval censored data via an iterative kernel density algorithm. Survey and Organisation for Economic Co-operation and Development (OECD) weights can be included into the direct estimation (see, Groß, M., U. Rendtel, T. Schmid, S. Schmon, and N. Tzavidis (2017) <doi:10.1111/rssa.12179>).
 License: GPL-2
 Encoding: UTF-8
 LazyData: true

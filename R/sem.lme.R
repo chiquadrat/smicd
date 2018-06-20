@@ -60,7 +60,7 @@
 #' @importFrom mvtnorm rmvnorm
 #' @return NULL
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' # Load and prepare data
 #' data <- Exam
 #' classes <- c(1,1.5,2.5,3.5,4.5,5.5,6.5,7.7,8.5, Inf)

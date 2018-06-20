@@ -73,7 +73,7 @@ proxy for the interval censored variable. The object \code{resultX} returns the
 pseudo samples of each iteration run of the KDE-algorithm.
 }
 \examples{
-\donttest{
+\dontrun{
 # Generate data
 x=rlnorm(500, meanlog = 8, sdlog = 1)
 classes <- c(0,500,1000,1500,2000,2500,3000,4000,5000, 6000,8000,10000, 15000,Inf)

@@ -11,7 +11,7 @@ standardError.est <- function(b, xclass, classes, burnin, samples, boundary, bw,
     Sys.sleep(0.1)
     boot_samp <- xclass[sample(length(xclass), size=length(xclass), replace = TRUE)]
 
-    density.est <- dclassICD(xclass = xclass, classes = classes,
+    density.est <- dclassICD(xclass = boot_samp, classes = classes,
                          burnin = burnin, samples = samples, boundary = boundary, bw = bw,
                          evalpoints = evalpoints, adjust = adjust, upper = upper,
                          weights= weights, oecd = oecd)

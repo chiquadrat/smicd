@@ -10,7 +10,9 @@ Encoding: UTF-8
 LazyData: true
 Suggests:
  knitr,
-    rmarkdown
+    rmarkdown,
+    mlmRev,
+    Kernelheaping
 RoxygenNote: 6.0.1
 Imports: ineq,
     truncnorm,
@@ -20,7 +22,6 @@ Imports: ineq,
     mvtnorm,
     spatstat,
     laeken,
-    weights,
-    mlmRev,
-    Kernelheaping
+    weights
+    
 

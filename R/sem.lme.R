@@ -144,11 +144,11 @@ semLme <- function(formula, data, classes, burnin = 40, samples = 200, trafo = "
     result_sigmae[j]<- sigmahat
     r_squared <- r.squaredGLMM(regclass)
           if (is.matrix(r_squared)) {
-            result_r2m[j] <- r_squared["delta", 1]
-            result_r2c[j] <- r_squared["delta", 2]
+            result_r2m[j] <- unname(r_squared["delta", 1])
+            result_r2c[j] <- unname(r_squared["delta", 2])
             } else {
-              result_r2m[j] <- r_squared[1]
-              result_r2c[j] <- r_squared[2]
+              result_r2m[j] <- unname(r_squared[1])
+              result_r2c[j] <- unname(r_squared[2])
             }
     result_icc[j] <- icc.est(model = regclass)
     resulty[,j] <- data$pseudoy

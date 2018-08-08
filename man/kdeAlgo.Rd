@@ -5,9 +5,9 @@
 \title{Estimation of Statistical Indicators from Interval Censored Data}
 \usage{
 kdeAlgo(xclass, classes, threshold = 0.6, burnin = 80, samples = 400,
-  bootstrap.se = FALSE, b = 100, boundary = FALSE, bw = "nrd0",
-  evalpoints = 4000, adjust = 1, custom_indicator = NULL, upper = 3,
-  weights = NULL, oecd = NULL)
+  bootstrap.se = FALSE, b = 100, bw = "nrd0", evalpoints = 4000,
+  adjust = 1, custom_indicator = NULL, upper = 3, weights = NULL,
+  oecd = NULL)
 }
 \arguments{
 \item{xclass}{interval censored values; factor with ordered factor values,
@@ -28,9 +28,6 @@ indicators are estimated}
 
 \item{b}{number of bootstrap iterations for the estimation of the standard errors}
 
-\item{boundary}{TRUE for positive only data (no positive density for negative values),
-as in \code{\link[Kernelheaping]{dclass}}}
-
 \item{bw}{bandwidth selector method, defaults to "nrd0", as in
 \code{\link[stats]{density}}}
 
@@ -41,9 +38,10 @@ as in \code{\link[Kernelheaping]{dclass}}}
 that bw=adjust*bw as in \code{\link[stats]{density}}}
 
 \item{custom_indicator}{a list of functions containing the indicators to be
-calculated additionally.
+additionally calculated.
 Such functions must only depend on the target variable \code{y} and the
-\code{threshold}. Defaults to \code{NULL}.}
+\code{threshold}. For the estimation of weighted custom indicators the function
+must also depend on \code{weights}. Defaults to \code{NULL}.}
 
 \item{upper}{if the upper bound of the upper interval is \code{Inf} e.g.
 \code{(15000,Inf)}, then \code{Inf} is replaced by \code{15000*upper}}
@@ -51,7 +49,7 @@ Such functions must only depend on the target variable \code{y} and the
 \item{weights}{any kind of survey or design weights that will be used for the
 weighted estimation of the statistical indicators}
 
-\item{oecd}{OECD weights for equivalized household size}
+\item{oecd}{weights for equivalized household size}
 }
 \value{
 An object of class "kdeAlgo" that provides estimates for statistical indicators
@@ -70,7 +68,7 @@ of the standard errors is facilitated by a non-parametric bootstrap.
 \details{
 The statistical indicators are estimated using pseudo samples as
 proxy for the interval censored variable. The object \code{resultX} returns the
-pseudo samples of each iteration run of the KDE-algorithm.
+pseudo samples for each iteration step of the KDE-algorithm.
 }
 \examples{
 \dontrun{

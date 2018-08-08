@@ -15,8 +15,8 @@ ordered factor values}
 
 \item{data}{a data frame containing the variables of the model}
 
-\item{classes}{numeric vector of classes; \code{-Inf} as first and
-\code{Inf} as last value
+\item{classes}{numeric vector of classes; \code{-Inf} as lower interval bound and
+\code{Inf} as upper interval bound
 is allowed. If the Box-Cox or
 logarithmic transformation is chosen, the minimum interval bound must be
 \eqn{\ge 0}.}
@@ -40,7 +40,7 @@ for finding the optimal lambda of the Box-Cox transformation. The number of
 iterations
 is extended in the following way: \code{(burnin+samples)*adjust}}
 
-\item{bootstrap.se}{if \code{TRUE} standard errors for the regression
+\item{bootstrap.se}{if \code{TRUE} standard errors of the regression
 parameters
  are estimated}
 

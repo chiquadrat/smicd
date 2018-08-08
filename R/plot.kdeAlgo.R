@@ -1,8 +1,8 @@
 #' @title Plot Diagnostics for a kdeAlgo Object
 #'
-#' @description Plots the estimtated density from the interval censored variable.
+#' @description Plots the estimtated density of the interval censored variable.
 #' Also, convergence plots are given for all estimated statistical indicators.
-#' The estimated indicator is plotted against the iteration step of the KDE-Algorithm.
+#' The estimated indicator is plotted against the iteration step of the KDE-algorithm.
 #' A vertical line indicates the end of the burn-in period.
 #' @param x an object of type "kdeAlgo", typical result of \code{\link{kdeAlgo}}
 #' @param indicator a vector of indicator names specifying for which indicators

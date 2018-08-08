@@ -2,7 +2,7 @@
 
 # The function estimates the standard errors of the indicators
 
-standardError.est <- function(b, xclass, classes, burnin, samples, boundary, bw, evalpoints, adjust, threshold,
+standardError.est <- function(b, xclass, classes, burnin, samples, bw, evalpoints, adjust, threshold,
                               custom_indicator, upper, weights, oecd){
 
   pb <- txtProgressBar(min = 1, max = b, style = 3)
@@ -12,7 +12,7 @@ standardError.est <- function(b, xclass, classes, burnin, samples, boundary, bw,
     boot_samp <- xclass[sample(length(xclass), size=length(xclass), replace = TRUE)]
 
     density.est <- dclassICD(xclass = boot_samp, classes = classes,
-                         burnin = burnin, samples = samples, boundary = boundary, bw = bw,
+                         burnin = burnin, samples = samples, bw = bw,
                          evalpoints = evalpoints, adjust = adjust, upper = upper,
                          weights= weights, oecd = oecd)
 

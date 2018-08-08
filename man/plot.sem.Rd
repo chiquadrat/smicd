@@ -18,14 +18,14 @@ Convergence and density plots.
 \description{
 Available are convergence plots for the estimated
 fixed effects model parameters and the residual variance of
-the linear or mixed linear regression model. If the Box-Cox transformation
+the linear or linear mixed regression model. If the Box-Cox transformation
 is used
 for the transformation of the dependent variable, a convergence plot
 of the transformation parameter lambda is also available.
 In each of the convergence plots, the estimated parameter is plotted against
 the iteration step of the SEM-algorithm.
 A vertical line indicates the end of the burn-in period. Furthermore, the
-estimated density of the simulated dependent variable of the last iteration
+estimated density of the simulated dependent variable from the last iteration
 step
 is plotted with a histogram of the interval censored true dependent variable
 in the back.

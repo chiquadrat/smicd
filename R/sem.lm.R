@@ -10,8 +10,8 @@
 #' dependent variable is measured as interval censored values; factor with
 #' ordered factor values
 #' @param data a data frame containing the variables of the model
-#' @param classes numeric vector of classes; \code{-Inf} as first and
-#' \code{Inf} as last value
+#' @param classes numeric vector of classes; \code{-Inf} as lower interval bound and
+#' \code{Inf} as upper interval bound
 #' is allowed. If the Box-Cox or
 #' logarithmic transformation is chosen, the minimum interval bound must be
 #' \eqn{\ge 0}.
@@ -30,7 +30,7 @@
 #' for finding the optimal lambda of the Box-Cox transformation. The number of
 #' iterations
 #' is extended in the following way: \code{(burnin+samples)*adjust}
-#' @param bootstrap.se if \code{TRUE} standard errors for the regression
+#' @param bootstrap.se if \code{TRUE} standard errors of the regression
 #' parameters
 #'  are estimated
 #' @param b number of bootstrap iterations for the estimation of the standard

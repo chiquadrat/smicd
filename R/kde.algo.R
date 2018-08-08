@@ -13,8 +13,6 @@
 #' @param bootstrap.se if \code{TRUE} standard errors for the statistical
 #'  indicators are estimated
 #' @param b number of bootstrap iterations for the estimation of the standard errors
-#' @param boundary TRUE for positive only data (no positive density for negative values),
-#' as in \code{\link[Kernelheaping]{dclass}}
 #' @param bw bandwidth selector method, defaults to "nrd0", as in
 #' \code{\link[stats]{density}}
 #' @param evalpoints number of evaluation grid points, as in
@@ -24,14 +22,15 @@
 #' @param threshold used for the Head-Count Ratio and Poverty Gap, default is 60\%
 #' of the median e.g. \code{threshold=0.6}
 #' @param custom_indicator a list of functions containing the indicators to be
-#' calculated additionally.
+#' additionally calculated.
 #' Such functions must only depend on the target variable \code{y} and the
-#' \code{threshold}. Defaults to \code{NULL}.
+#' \code{threshold}. For the estimation of weighted custom indicators the function
+#' must also depend on \code{weights}. Defaults to \code{NULL}.
 #' @param upper if the upper bound of the upper interval is \code{Inf} e.g.
 #' \code{(15000,Inf)}, then \code{Inf} is replaced by \code{15000*upper}
 #' @param weights any kind of survey or design weights that will be used for the
 #' weighted estimation of the statistical indicators
-#' @param oecd OECD weights for equivalized household size
+#' @param oecd weights for equivalized household size
 #' @return An object of class "kdeAlgo" that provides estimates for statistical indicators
 #' and optionally, corresponding standard error estimates. Generic
 #' functions such as, \code{\link{print}},
@@ -40,7 +39,7 @@
 #' of components of objects of class "kdeAlgo".
 #' @details The statistical indicators are estimated using pseudo samples as
 #' proxy for the interval censored variable. The object \code{resultX} returns the
-#' pseudo samples of each iteration run of the KDE-algorithm.
+#' pseudo samples for each iteration step of the KDE-algorithm.
 #' @references
 #' Walter, P., Weimer, K. (2018). Estimating Poverty and Inequality Indicators
 #' using Interval Censored Income Data from the German Microcensus.
@@ -98,13 +97,13 @@
 
 
 kdeAlgo <- function(xclass, classes, threshold = 0.6 , burnin = 80, samples = 400,
-                     bootstrap.se = FALSE, b = 100, boundary = FALSE,
+                     bootstrap.se = FALSE, b = 100,
                      bw = "nrd0", evalpoints = 4000, adjust = 1,
                      custom_indicator = NULL, upper = 3, weights = NULL,
                      oecd = NULL) {
   Standard.Error = NULL
   density.est <- dclassICD(xclass = xclass, classes = classes,
-                        burnin = burnin, samples = samples, boundary = boundary,
+                        burnin = burnin, samples = samples,
                         bw = bw, evalpoints = evalpoints, adjust = adjust,
                         upper = upper, weights = weights, oecd = oecd)
 
@@ -121,7 +120,7 @@ kdeAlgo <- function(xclass, classes, threshold = 0.6 , burnin = 80, samples = 40
   if (bootstrap.se==TRUE) {
     Standard.Error <- standardError.est(b = b, xclass = xclass,
                                         classes = classes, burnin = burnin,
-                                samples = samples, boundary = boundary, bw = bw,
+                                samples = samples,  bw = bw,
                                 evalpoints = evalpoints, adjust = adjust,
                                 threshold = threshold,
                                 custom_indicator = custom_indicator, upper = upper,

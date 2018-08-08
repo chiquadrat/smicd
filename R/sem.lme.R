@@ -1,6 +1,6 @@
 #' @title Linear Mixed Regression with Interval Censored Dependent Variable
 #'
-#' @description This function estimates the mixed linear regression model when
+#' @description This function estimates the linear mixed regression model when
 #' the dependent
 #' variable is interval censored. The estimation of the standard errors is
 #' fasciliated by a parametric bootstrap.
@@ -14,7 +14,8 @@
 #' dependent variable is measuread as interval censored values; factor with
 #' ordered factor values
 #' @param data a data frame containing the variables of the model
-#' @param classes numeric vector of classes; -Inf as first and Inf as last value
+#' @param classes numeric vector of classes; \code{-Inf} as lower interval bound and
+#' \code{Inf} as upper interval bound
 #' is allowed. If the Box-Cox or
 #' logarithmic transformation is chosen, the minimum interval bound must be
 #' \eqn{\ge 0}.
@@ -31,7 +32,7 @@
 #' @param adjust extends the number of iteration steps of the SEM-algorithm
 #' for finding the optimal lambda of the Box-Cox transformation. The number of iterations
 #' is extended in the following way: \code{(burnin+samples)*adjust}
-#' @param bootstrap.se if \code{TRUE} standard errors for the regression parameters
+#' @param bootstrap.se if \code{TRUE} standard errors of the regression parameters
 #'  are estimated
 #' @param b number of bootstrap iterations for the estimation of the standard errors
 #' @return An object of class "sem" that provides parameter estimated for linear
@@ -141,9 +142,14 @@ semLme <- function(formula, data, classes, burnin = 40, samples = 200, trafo = "
     resultcoef[,j] <- regclass@beta
     result_ranef[[j]] <- as.matrix(ranef(regclass)[[1]])
     result_sigmae[j]<- sigmahat
-    #result_sigmau[j]<-as.data.frame(VarCorr(regclass))$sdcor[1]
-    result_r2m[j] <- unname(r.squaredGLMM(regclass)[1])
-    result_r2c[j] <- unname(r.squaredGLMM(regclass)[2])
+    r_squared <- r.squaredGLMM(regclass)
+          if (is.matrix(r_squared)) {
+            result_r2m[j] <- r_squared["delta", 1]
+            result_r2c[j] <- r_squared["delta", 2]
+            } else {
+              result_r2m[j] <- r_squared[1]
+              result_r2c[j] <- r_squared[2]
+            }
     result_icc[j] <- icc.est(model = regclass)
     resulty[,j] <- data$pseudoy
     VaCovMa[[j]] <- as.matrix(unclass(VarCorr(regclass))[[1]][1:ncol(ranef(regclass)[[1]]),])

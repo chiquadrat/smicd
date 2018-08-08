@@ -20,7 +20,8 @@ ordered factor values}
 
 \item{data}{a data frame containing the variables of the model}
 
-\item{classes}{numeric vector of classes; -Inf as first and Inf as last value
+\item{classes}{numeric vector of classes; \code{-Inf} as lower interval bound and
+\code{Inf} as upper interval bound
 is allowed. If the Box-Cox or
 logarithmic transformation is chosen, the minimum interval bound must be
 \eqn{\ge 0}.}
@@ -42,7 +43,7 @@ interval bound is \eqn{\ge 0}.}
 for finding the optimal lambda of the Box-Cox transformation. The number of iterations
 is extended in the following way: \code{(burnin+samples)*adjust}}
 
-\item{bootstrap.se}{if \code{TRUE} standard errors for the regression parameters
+\item{bootstrap.se}{if \code{TRUE} standard errors of the regression parameters
 are estimated}
 
 \item{b}{number of bootstrap iterations for the estimation of the standard errors}
@@ -57,7 +58,7 @@ of components
 of objects of class "sem".
 }
 \description{
-This function estimates the mixed linear regression model when
+This function estimates the linear mixed regression model when
 the dependent
 variable is interval censored. The estimation of the standard errors is
 fasciliated by a parametric bootstrap.

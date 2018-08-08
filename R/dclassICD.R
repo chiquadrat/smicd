@@ -3,10 +3,10 @@
 # dclassICD
 
 
-dclassICD <- function (xclass, classes, burnin, samples, boundary,
+dclassICD <- function (xclass, classes, burnin, samples,
           bw, evalpoints, adjust, upper, weights, oecd){
 
-  dbc <- NULL
+
 if(is.null(oecd)){
   xclassF <- xclass
   if (max(classes) == Inf) {
@@ -19,14 +19,10 @@ if(is.null(oecd)){
   lengths = as.vector(table(xclass))
   xclass <- as.numeric(as.character(xclass))
   gridx = seq(min(classes), max(classes), length = evalpoints)
-  if (boundary == FALSE) {
-    Mestimates <- density(xclass, from = min(gridx), to = max(gridx),
+
+  Mestimates <- density(xclass, from = min(gridx), to = max(gridx),
                           n = length(gridx), bw = 2 * max(classes)/length(classes))$y
-  }
-  if (boundary == TRUE) {
-    Mestimates <- dbc(gridx = gridx, x = xclass, bw = 2 *
-                        max(classes)/length(classes))
-  }
+
   resultDensity = matrix(ncol = c(burnin + samples), nrow = length(gridx))
   resultX = matrix(ncol = c(burnin + samples), nrow = length(xclass))
   resultW = matrix(ncol = c(burnin + samples), nrow = length(xclass))
@@ -51,9 +47,7 @@ if(is.null(oecd)){
     NewDensity <- density(new, from = min(gridx), to = max(gridx),
                           n = length(gridx), bw = bw, adjust = adjust)
     Mestimates <- NewDensity$y
-    if (boundary == TRUE) {
-      Mestimates <- dbc(gridx = gridx, x = new, bw = NewDensity$bw)
-    }
+
     resultDensity[,j] = Mestimates
     resultX[,j] = new
     if(!is.null(weights)){resultW[,j] = newW}

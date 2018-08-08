@@ -6,22 +6,24 @@
 \alias{smicd-package}
 \title{Statistical Methods for Interval Censored (Grouped) Data}
 \description{
-The package \pkg{smicd} supports the estimation of linear and mixed linear regression
+The package \pkg{smicd} supports the estimation of linear and linear mixed regression
 models (random slope and random intercept models)
 with interval censored dependent variable. Parameter estimates are obtain
-by a stochastic expectation maximization (SEM) algorithm (\cite{Walter et al. 2017}).
+by a stochastic expectation maximization (SEM) algorithm (\cite{Walter et al., 2017}).
 Standard errors are estimated by a non-parametric bootstrap in the linear
-regression model and by a parametric bootstrap in the mixed linear regression
+regression model and by a parametric bootstrap in the linear mixed regression
 model. To handle departures
-from the model assumptions transformations (log and Box-Cox) are incorporated into
-the algorithm (\cite{Walter et al. 2017}). Furthermore, the package \pkg{smicd} has
+from the model assumptions transformations (log and Box-Cox) of the interval censored
+dependent variable are incorporated into
+the algorithm (\cite{Walter et al., 2017}). Furthermore, the package \pkg{smicd} has
 implemented a non-parametric kernel density algorithm for the direct (without
 covariates) estimation of statistical indicators from interval censored data
-(\cite{Gross et al. 2017}). The standard errors of the statistical indicators
- are estimated by a non-parametric bootstrap.
+(\cite{Walter and Weimer, 2018}; \cite{Gross et al., 2017}). The standard
+errors of the statistical indicators
+are estimated by a non-parametric bootstrap.
 }
 \details{
-The two estimation functions for the linear and mixed linear regression model
+The two estimation functions for the linear and linear mixed regression model
 are called \code{\link{semLm}} and \code{\link{semLme}}. So far, only random
 intercept and random slope models are implemented. For both functions
 the following methods are available: \code{\link{summary.sem}},
@@ -35,10 +37,11 @@ An overview of all currently provided functions can be requested by
 \code{library(help=smicd)}.
 }
 \references{
-Walter, P., Gross, M., Schmid, T. and Tzavidis, N. (2017). Estimation of Linear and Non-Linear Indicators
-using Interval Censored Income Data. FU-Berlin School of Business & Economics, Discussion
-Paper. \cr \cr
-#' Walter, P., Weimer, K. (2018). Estimating Poverty and Inequality Indicators
+Walter, P., Gross, M., Schmid, T. and Tzavidis, N. (2017). Estimation of Linear
+and Non-Linear Indicators
+using Interval Censored Income Data. FU-Berlin School of Business & Economics,
+Discussion Paper. \cr \cr
+Walter, P. and Weimer, K. (2018). Estimating Poverty and Inequality Indicators
 using Interval Censored Income Data from the German Microcensus.
 FU-Berlin School of Business & Economics, Discussion
 Paper. \cr \cr

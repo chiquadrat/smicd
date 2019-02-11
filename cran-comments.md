@@ -1,5 +1,5 @@
 ## Test environments
-* ubuntu 14.04.5 (on travis-ci), R 3.5.0
+* ubuntu 14.04.5 (on travis-ci), R 3.5.2
 * Windows7  R 3.4.3 local development environment
 
 ## R CMD check results

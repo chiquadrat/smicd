@@ -33,9 +33,16 @@ results <- c(results, c.indicator)
 }
   } else {
     sw <- sum(weights)
-    thresholdW <-  threshold * weighted.quantile(x,
-                                                 w = weights,
-                                                 probs = .5)
+    if(is.na(threshold)) {
+      thresholdW <-  0.6 * weighted.quantile(x,
+                                                   w = weights,
+                                                   probs = .5)
+    } else {
+      thresholdW <-  threshold * weighted.quantile(x,
+                                                   w = weights,
+                                                   probs = .5)
+    }
+
     results <- c(mean = weighted.mean(x, w = weights),
     gini =  gini(x, weights = weights)$value/100,
     hcr =  arpr(x, weights = weights, p = threshold)$value/100,
@@ -47,6 +54,7 @@ results <- c(results, c.indicator)
     pgap = sum(weights * (x < thresholdW) * (thresholdW - x)
                        / thresholdW) / sw,
     qsr = qsr(x, weights = weights)$value)
+
     if (!is.null(custom_indicator)){
       c.indicator <- NULL
       for(i in 1:length(custom_indicator)) {

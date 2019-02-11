@@ -1,3 +1,7 @@
+# smicd 1.0.3
+
+* Bugfix in function `kdeAlgo` and `standardError.est`
+
 # smicd 1.0.2
 
 * New Vignette

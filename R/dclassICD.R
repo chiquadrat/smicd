@@ -83,7 +83,6 @@ if(is.null(oecd)){
 
   for (j in 1:(burnin + samples)) {
     new = c()
-    EstDat = matrix(ncol = 2, nrow = nrow(data))
     newWeights = c()
     for (i in 1:(length(unique(data$NIntervals)))) {
       dataTemp <- data[data$NIntervals == unique(data$NIntervals)[i],]

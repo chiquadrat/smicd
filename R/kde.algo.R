@@ -115,7 +115,7 @@ kdeAlgo <- function(xclass, classes, threshold = 0.6 , burnin = 80, samples = 40
                                                           weights = density.est$resultW[,i]))
 
   }
-  Indicators <- rowMeans(Indicators.run)
+  Indicators <- rowMeans(Indicators.run[,(burnin+1):dim(Indicators.run)[2]])
 
   if (bootstrap.se==TRUE) {
     Standard.Error <- standardError.est(b = b, xclass = xclass,

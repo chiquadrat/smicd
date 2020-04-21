@@ -1,4 +1,4 @@
-#' @title Summarizing Linear and Linear Mixed Models with SEM
+#' @title Summarizing Linear and Linear Mixed Models estimated with the SEM algorithm
 #'
 #' @description \code{summary} method for class \code{"sem"}.
 #' @param object an object of class \code{"sem"}.

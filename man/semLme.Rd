@@ -4,8 +4,17 @@
 \alias{semLme}
 \title{Linear Mixed Regression with Interval Censored Dependent Variable}
 \usage{
-semLme(formula, data, classes, burnin = 40, samples = 200, trafo = "None",
-  adjust = 2, bootstrap.se = FALSE, b = 100)
+semLme(
+  formula,
+  data,
+  classes,
+  burnin = 40,
+  samples = 200,
+  trafo = "None",
+  adjust = 2,
+  bootstrap.se = FALSE,
+  b = 100
+)
 }
 \arguments{
 \item{formula}{a two-sided linear formula object describing both the fixed-effects

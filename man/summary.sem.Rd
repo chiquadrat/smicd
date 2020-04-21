@@ -2,7 +2,7 @@
 % Please edit documentation in R/summary.sem.R
 \name{summary.sem}
 \alias{summary.sem}
-\title{Summarizing Linear and Linear Mixed Models with SEM}
+\title{Summarizing Linear and Linear Mixed Models estimated with the SEM}
 \usage{
 \method{summary}{sem}(object, ...)
 }

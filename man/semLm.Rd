@@ -4,8 +4,17 @@
 \alias{semLm}
 \title{Linear Regression with Interval Censored Dependent Variable}
 \usage{
-semLm(formula, data, classes, burnin = 40, samples = 200, trafo = "None",
-  adjust = 2, bootstrap.se = FALSE, b = 100)
+semLm(
+  formula,
+  data,
+  classes,
+  burnin = 40,
+  samples = 200,
+  trafo = "None",
+  adjust = 2,
+  bootstrap.se = FALSE,
+  b = 100
+)
 }
 \arguments{
 \item{formula}{an object of class \code{formula}, as in

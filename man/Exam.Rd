@@ -4,7 +4,8 @@
 \name{Exam}
 \alias{Exam}
 \title{Exam scores from inner London}
-\format{A data frame with 4059 observations on the following 10 variables:
+\format{
+A data frame with 4059 observations on the following 10 variables:
 \describe{
 \item{school}{School ID - a factor.}
 \item{examsc}{Exam score.}
@@ -18,7 +19,8 @@ Levels are bottom 25\%, mid 50\%, and top 25\%}
 \item{sex}{Sex of the student - levels are F and M.}
 \item{type}{School type - levels are Mxd and Sngl.}
 \item{student}{Student id (within school) - a factor}
-}}
+}
+}
 \description{
 Exam scores of 4,059 students from 65 schools in Inner London, as in
 \code{\link[mlmRev]{Exam}}.

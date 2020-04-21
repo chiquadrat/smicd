@@ -4,10 +4,22 @@
 \alias{kdeAlgo}
 \title{Estimation of Statistical Indicators from Interval Censored Data}
 \usage{
-kdeAlgo(xclass, classes, threshold = 0.6, burnin = 80, samples = 400,
-  bootstrap.se = FALSE, b = 100, bw = "nrd0", evalpoints = 4000,
-  adjust = 1, custom_indicator = NULL, upper = 3, weights = NULL,
-  oecd = NULL)
+kdeAlgo(
+  xclass,
+  classes,
+  threshold = 0.6,
+  burnin = 80,
+  samples = 400,
+  bootstrap.se = FALSE,
+  b = 100,
+  bw = "nrd0",
+  evalpoints = 4000,
+  adjust = 1,
+  custom_indicator = NULL,
+  upper = 3,
+  weights = NULL,
+  oecd = NULL
+)
 }
 \arguments{
 \item{xclass}{interval censored values; factor with ordered factor values,

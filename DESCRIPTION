@@ -14,7 +14,7 @@ Suggests:
     mlmRev,
     Kernelheaping,
     R.rsp
-RoxygenNote: 6.0.1
+RoxygenNote: 7.1.0
 Imports: ineq,
     truncnorm,
     lme4,
@@ -25,5 +25,3 @@ Imports: ineq,
     laeken,
     weights
 VignetteBuilder: R.rsp
-    
-

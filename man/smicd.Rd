@@ -3,7 +3,6 @@
 \docType{package}
 \name{smicd}
 \alias{smicd}
-\alias{smicd-package}
 \title{Statistical Methods for Interval Censored (Grouped) Data}
 \description{
 The package \pkg{smicd} supports the estimation of linear and linear mixed regression

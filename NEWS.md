@@ -1,3 +1,7 @@
+# smicd 1.0.4
+
+* Test
+
 # smicd 1.0.3
 
 * Bugfix in function `kdeAlgo` and `standardError.est`

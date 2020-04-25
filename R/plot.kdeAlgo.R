@@ -47,9 +47,23 @@ plot.kdeAlgo <- function(x, indicator = NULL, ...) {
   if(!is.null(indicator)){
   for (i in 1:length(indicator)) {
       name <- indicator
-      plot(x$Point_estimate.run[indicator[i],], xlab = "Iteration step", ylab = name[i],
-           main = "Convergence")
+      par(mfrow=c(2,1))
+      plot(x$Point_estimate.run[indicator[i],], xlab = "Iteration step",
+           ylab = "Point estimate for each iteration",
+           main = paste0("Convergence ", name[i]))
       abline(v = x$burnin)
+
+      means <- NULL
+      for (j in 1:x$samples){
+        means <- c(means, mean(x$Point_estimate.run[indicator[i],][x$burnin:j]))
+      }
+      point = c(rep(means[1]-0.01, x$burnin),means)
+      plot(point,xlim = c(0, (x$burnin + x$samples)),
+           col = ifelse(point==means[1]-0.01,'white','black'),
+           xlab = "Iteration step", ylab = "Average up to iterstion step M")
+      abline(h=x$Point_estimate[indicator[i]])
+      abline(v=x$burnin)
+
       cat("Press [enter] to continue")
       line <- readline()
     }

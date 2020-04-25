@@ -69,6 +69,7 @@ plot.kdeAlgo <- function(x, indicator = NULL, ...) {
     }
 
   }
+  par(mfrow=c(1,1))
   classes <- x$classes
   xclass <- x$xclass
   if (max(classes) == Inf) {

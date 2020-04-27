@@ -31,6 +31,9 @@ plot.sem <- function(x,...) {
   if (!is.null(x$conv.sigmau)){
     plot(x$conv.sigmau, main = "Convergence", xlab = "Iteration Step", ylab = expression(sigma[u]))
     abline(v=x$burnin)
+
+    # Add some convergence plots here
+
     cat("Press [enter] to continue")
     line <- readline()
   }

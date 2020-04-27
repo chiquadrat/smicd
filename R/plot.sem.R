@@ -28,26 +28,47 @@
 
 plot.sem <- function(x,...) {
 
-  if (!is.null(x$conv.sigmau)){
-    plot(x$conv.sigmau, main = "Convergence", xlab = "Iteration Step", ylab = expression(sigma[u]))
-    abline(v=x$burnin)
 
-    # Add some convergence plots here
-
-    cat("Press [enter] to continue")
-    line <- readline()
-  }
-
-  plot(x$conv.sigmae, main = "Convergence",  xlab = "Iteration Step", ylab = expression(sigma[e]))
+  par(mfrow=c(2,1))
+  plot(x$conv.sigmae, main =  expression(paste("Convergence ",sigma[e])),
+       xlab = "Iteration step", ylab = "Point estimate for each iteration")
   abline(v=x$burnin)
+  means <- NULL
+  for (j in 1:x$samples){
+    means <- c(means, mean(x$conv.sigmae[x$burnin:j]))
+  }
+  point = c(rep(means[1]-.Machine$double.xmin, x$burnin),means)
+  plot(point,xlim = c(0, (x$burnin + x$samples)),
+       col = ifelse(point==means[1]-.Machine$double.xmin,'white','black'),
+       xlab = "Iteration step", ylab = "Average up to iterstion step M")
+  abline(h=x$sigmae)
+  abline(v=x$burnin)
+
 
   cat("Press [enter] to continue")
   line <- readline()
 
   for(i in 1:(dim(x$conv.coef)[1])) {
+    par(mfrow=c(2,1))
     lbs <- parse(text=(paste0("beta[",i-1,"]")))
-    plot(x$conv.coef[i,], main = "Convergence", xlab = "Iteration Step", ylab = lbs)
+    indx = i-1
+    plot(x$conv.coef[i,], main = bquote("Convergence" ~ beta[.(indx)]),
+         xlab = "Iteration step",
+         ylab = "Point estimate for each iteration")
     abline(v=x$burnin)
+
+    means <- NULL
+    for (j in 1:x$samples){
+      means <- c(means, mean(x$conv.coef[i,][x$burnin:j]))
+    }
+    point = c(rep(means[1]-.Machine$double.xmin, x$burnin),means)
+    plot(point,xlim = c(0, (x$burnin + x$samples)),
+         col = ifelse(point==means[1]-.Machine$double.xmin,'white','black'),
+         xlab = "Iteration step", ylab = "Average up to iterstion step M")
+    abline(h=x$coef[i])
+    abline(v=x$burnin)
+
+
     cat("Press [enter] to continue")
     line <- readline()
     }
@@ -55,8 +76,23 @@ plot.sem <- function(x,...) {
 
 
   if (!is.null(x$conv.lambda)){
-    plot(x$conv.lambda, main = "Convergence", xlab = "Iteration Step", ylab = expression(lambda))
+    par(mfrow=c(2,1))
+    plot(x$conv.lambda, main =  expression(paste("Convergence ",lambda)),
+        xlab = "Iteration step",
+         ylab = "Point estimate for each iteration")
     abline(v=x$b.lambda)
+
+    means <- NULL
+    for (j in 1:x$samples){
+      means <- c(means, mean(x$conv.lambda[x$burnin:j]))
+    }
+    point = c(rep(means[1]-.Machine$double.xmin, x$burnin),means)
+    plot(point,xlim = c(0, (x$burnin + x$samples)),
+         col = ifelse(point==means[1]-.Machine$double.xmin,'white','black'),
+         xlab = "Iteration step", ylab = "Average up to iterstion step M")
+    abline(h=x$lambda)
+    abline(v=x$burnin)
+
 
     cat("Press [enter] to continue")
     line <- readline()

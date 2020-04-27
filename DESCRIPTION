@@ -23,5 +23,6 @@ Imports: ineq,
     mvtnorm,
     spatstat,
     laeken,
-    weights
+    weights,
+    graphics
 VignetteBuilder: R.rsp

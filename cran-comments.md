@@ -1,6 +1,6 @@
 ## Test environments
-* ubuntu 14.04.5 (on travis-ci), R 3.5.2
-* Windows7  R 3.4.3 local development environment
+* ubuntu 16.04.6 (on travis-ci), R 4.0.0
+* Windows7  R 3.6.3 local development environment
 
 ## R CMD check results
 

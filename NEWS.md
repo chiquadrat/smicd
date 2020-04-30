@@ -1,4 +1,4 @@
-# smicd 1.0.5
+# smicd 1.0.4
 
 * Added new convergence plots for objects of class `kdeAlgo` and `sem`
 * Updated documentation and references

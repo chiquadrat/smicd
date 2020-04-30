@@ -29,7 +29,7 @@
 plot.sem <- function(x,...) {
 
 
-  par(mfrow=c(2,1))
+  graphics::par(mfrow=c(2,1))
   plot(x$conv.sigmae, main =  expression(paste("Convergence ",sigma[e])),
        xlab = "Iteration step", ylab = "Point estimate for each iteration")
   abline(v=x$burnin)
@@ -49,7 +49,7 @@ plot.sem <- function(x,...) {
   line <- readline()
 
   for(i in 1:(dim(x$conv.coef)[1])) {
-    par(mfrow=c(2,1))
+    graphics::par(mfrow=c(2,1))
     lbs <- parse(text=(paste0("beta[",i-1,"]")))
     indx = i-1
     plot(x$conv.coef[i,], main = bquote("Convergence" ~ beta[.(indx)]),
@@ -76,7 +76,7 @@ plot.sem <- function(x,...) {
 
 
   if (!is.null(x$conv.lambda)){
-    par(mfrow=c(2,1))
+    graphics::par(mfrow=c(2,1))
     plot(x$conv.lambda, main =  expression(paste("Convergence ",lambda)),
         xlab = "Iteration step",
          ylab = "Point estimate for each iteration")

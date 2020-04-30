@@ -21,7 +21,7 @@ plot.kdeAlgo <- function(x, indicator = NULL, ...) {
 
   if(is.null(indicator)){
   for (i in 1:dim(x$Point_estimate.run)[1]) {
-   par(mfrow=c(2,1))
+   graphics::par(mfrow=c(2,1))
    name <- rownames(x$Point_estimate.run)
    plot(x$Point_estimate.run[i,], xlab = "Iteration step",
         ylab = "Point estimate for each iteration",
@@ -47,7 +47,7 @@ plot.kdeAlgo <- function(x, indicator = NULL, ...) {
   if(!is.null(indicator)){
   for (i in 1:length(indicator)) {
       name <- indicator
-      par(mfrow=c(2,1))
+      graphics::par(mfrow=c(2,1))
       plot(x$Point_estimate.run[indicator[i],], xlab = "Iteration step",
            ylab = "Point estimate for each iteration",
            main = paste0("Convergence ", name[i]))
@@ -69,7 +69,7 @@ plot.kdeAlgo <- function(x, indicator = NULL, ...) {
     }
 
   }
-  par(mfrow=c(1,1))
+  graphics::par(mfrow=c(1,1))
   classes <- x$classes
   xclass <- x$xclass
   if (max(classes) == Inf) {

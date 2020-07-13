@@ -99,6 +99,7 @@ plot.sem <- function(x,...) {
   }
 
   if (x$transformation == "None"){
+    graphics::par(mfrow=c(1,1))
     if (x$classes[1]==-Inf) {x$classes[1] <- min(x$pseudo.y[,ncol(x$pseudo.y)])-1}
     if (x$classes[length(x$classes)]==Inf) {x$classes[length(x$classes)] <- max(x$pseudo.y[,ncol(x$pseudo.y)])+1}
 
@@ -112,6 +113,7 @@ plot.sem <- function(x,...) {
     lines(density(x$pseudo.y[,ncol(x$pseudo.y)]),  col="purple",lwd=2)}
 
   if (x$transformation == "log"){
+    graphics::par(mfrow=c(1,1))
     pseudo.y <- exp(x$pseudo.y[,ncol(x$pseudo.y)])
     if (x$classes[1]==-Inf) {x$classes[1] <- min(pseudo.y)-1}
     if (x$classes[length(x$classes)]==Inf) {x$classes[length(x$classes)] <- max(pseudo.y)+1}
@@ -127,6 +129,7 @@ plot.sem <- function(x,...) {
     lines(density(pseudo.y),  col="purple",lwd=2)}
 
   if (x$transformation == "bc"){
+    graphics::par(mfrow=c(1,1))
     pseudo.y <- boxcox.lme.est(dat=x$pseudo.y[,ncol(x$pseudo.y)],
                             lambda = x$lambda, inverse = T)[[1]]
     if (x$classes[1]==-Inf) {x$classes[1] <- min(pseudo.y)-1}

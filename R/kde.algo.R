@@ -34,17 +34,16 @@
 #' @return An object of class "kdeAlgo" that provides estimates for statistical indicators
 #' and optionally, corresponding standard error estimates. Generic
 #' functions such as, \code{\link{print}},
-#' \code{\link{plot}}, and \code{\link{summary}} have methods that can be used
+#' and \code{\link{plot}} have methods that can be used
 #' to obtain further information. See \code{\link{kdeAlgoObject}} for a description
 #' of components of objects of class "kdeAlgo".
 #' @details The statistical indicators are estimated using pseudo samples as
 #' proxy for the interval censored variable. The object \code{resultX} returns the
 #' pseudo samples for each iteration step of the KDE-algorithm.
 #' @references
-#' Walter, P., Weimer, K. (2018). Estimating Poverty and Inequality Indicators
-#' using Interval Censored Income Data from the German Microcensus.
-#' FU-Berlin School of Business & Economics, Discussion
-#' Paper. \cr \cr
+#' Walter, P. (2019). A Selection of Statistical Methods for Interval-Censored
+#' Data with Applications to the German Microcensus, PhD thesis,
+#' Freie Universitaet Berlin\cr \cr
 #' Groß, M., U. Rendtel, T. Schmid, S. Schmon, and N. Tzavidis (2017).
 #' Estimating the density of ethnic minorities and aged people in Berlin:
 #' Multivariate
@@ -57,7 +56,7 @@
 #' \code{\link{plot.kdeAlgo}}
 #' @export
 #' @importFrom ineq ineq
-#' @importFrom spatstat weighted.quantile
+#' @importFrom Hmisc wtd.quantile
 #' @importFrom laeken gini
 #' @importFrom laeken arpr
 #' @importFrom laeken qsr
@@ -68,74 +67,86 @@
 #' @examples
 #' \dontrun{
 #' # Generate data
-#' x=rlnorm(500, meanlog = 8, sdlog = 1)
-#' classes <- c(0,500,1000,1500,2000,2500,3000,4000,5000, 6000,8000,10000, 15000,Inf)
-#' xclass <- cut(x,breaks=classes)
-#' weights <- abs(rnorm(500,0,1))
-#' oecd <- rep(seq(1,6.9,0.3),25)
+#' x <- rlnorm(500, meanlog = 8, sdlog = 1)
+#' classes <- c(0, 500, 1000, 1500, 2000, 2500, 3000, 4000, 5000, 6000, 8000, 10000, 15000, Inf)
+#' xclass <- cut(x, breaks = classes)
+#' weights <- abs(rnorm(500, 0, 1))
+#' oecd <- rep(seq(1, 6.9, 0.3), 25)
 #'
 #' # Estimate statistical indicators with default settings
 #' Indicator <- kdeAlgo(xclass = xclass, classes = classes)
 #'
 #' # Include custom indicators
-#' Indicator_custom <- kdeAlgo(xclass = xclass, classes = classes,
-#' custom_indicator = list(quant5 = function(y, threshold)
-#' {quantile(y, probs = 0.05)}))
+#' Indicator_custom <- kdeAlgo(
+#'   xclass = xclass, classes = classes,
+#'   custom_indicator = list(quant5 = function(y, threshold) {
+#'     quantile(y, probs = 0.05)
+#'   })
+#' )
 #'
 #' # Indclude survey and oecd weights
-#' Indicator_weights <- kdeAlgo(xclass = xclass, classes = classes,
-#' weights = weights, oecd = oecd)
-#' } \dontshow{
+#' Indicator_weights <- kdeAlgo(
+#'   xclass = xclass, classes = classes,
+#'   weights = weights, oecd = oecd
+#' )
+#' }
+#' \dontshow{
 #' # Generate data
-#' x=rlnorm(500, meanlog = 8, sdlog = 1)
-#' classes <- c(0,500,1000,1500,2000,2500,3000,4000,5000, 6000,8000,10000, 15000,Inf)
-#' xclass <- cut(x,breaks=classes)
+#' x <- rlnorm(500, meanlog = 8, sdlog = 1)
+#' classes <- c(0, 500, 1000, 1500, 2000, 2500, 3000, 4000, 5000, 6000, 8000, 10000, 15000, Inf)
+#' xclass <- cut(x, breaks = classes)
 #'
 #' # Estimate statistical indicators
 #' Indicator <- kdeAlgo(xclass = xclass, classes = classes, burnin = 10, samples = 40)
 #' }
-
-
-kdeAlgo <- function(xclass, classes, threshold = 0.6 , burnin = 80, samples = 400,
-                     bootstrap.se = FALSE, b = 100,
-                     bw = "nrd0", evalpoints = 4000, adjust = 1,
-                     custom_indicator = NULL, upper = 3, weights = NULL,
-                     oecd = NULL) {
-  Standard.Error = NULL
-  density.est <- dclassICD(xclass = xclass, classes = classes,
-                        burnin = burnin, samples = samples,
-                        bw = bw, evalpoints = evalpoints, adjust = adjust,
-                        upper = upper, weights = weights, oecd = oecd)
+#'
+kdeAlgo <- function(xclass, classes, threshold = 0.6, burnin = 80, samples = 400,
+                    bootstrap.se = FALSE, b = 100,
+                    bw = "nrd0", evalpoints = 4000, adjust = 1,
+                    custom_indicator = NULL, upper = 3, weights = NULL,
+                    oecd = NULL) {
+  Standard.Error <- NULL
+  density.est <- dclassICD(
+    xclass = xclass, classes = classes,
+    burnin = burnin, samples = samples,
+    bw = bw, evalpoints = evalpoints, adjust = adjust,
+    upper = upper, weights = weights, oecd = oecd
+  )
 
   Indicators.run <- NULL
   for (i in 1:dim(density.est$resultX)[2]) {
-    Indicators.run <- cbind(Indicators.run,indicators.est(x=density.est$resultX[,i],
-                                                          threshold = threshold,
-                                                          custom_indicator = custom_indicator,
-                                                          weights = density.est$resultW[,i]))
-
+    Indicators.run <- cbind(Indicators.run, indicators.est(
+      x = density.est$resultX[, i],
+      threshold = threshold,
+      custom_indicator = custom_indicator,
+      weights = density.est$resultW[, i]
+    ))
   }
-  Indicators <- rowMeans(Indicators.run[,(burnin+1):dim(Indicators.run)[2]])
+  Indicators <- rowMeans(Indicators.run[, (burnin + 1):dim(Indicators.run)[2]])
 
-  if (bootstrap.se==TRUE) {
-    Standard.Error <- standardError.est(b = b, xclass = xclass,
-                                        classes = classes, burnin = burnin,
-                                samples = samples,  bw = bw,
-                                evalpoints = evalpoints, adjust = adjust,
-                                threshold = threshold,
-                                custom_indicator = custom_indicator, upper = upper,
-                                weights = weights, oecd = oecd)
+  if (bootstrap.se == TRUE) {
+    Standard.Error <- standardError.est(
+      b = b, xclass = xclass,
+      classes = classes, burnin = burnin,
+      samples = samples, bw = bw,
+      evalpoints = evalpoints, adjust = adjust,
+      threshold = threshold,
+      custom_indicator = custom_indicator, upper = upper,
+      weights = weights, oecd = oecd
+    )
   }
 
-    results <- list(Point_estimate = Indicators, Standard_Error = Standard.Error,
-                    Mestimates = density.est$Mestimates,
-                    resultDensity = density.est$resultDensity,
-                    resultX = density.est$resultX,
-                    xclass = xclass, gridx = density.est$gridx,
-                    classes = classes, burnin = burnin,
-                    samples = samples, Point_estimate.run = Indicators.run,
-                    oecd = oecd, weights = weights, upper = upper)
+  results <- list(
+    Point_estimate = Indicators, Standard_Error = Standard.Error,
+    Mestimates = density.est$Mestimates,
+    resultDensity = density.est$resultDensity,
+    resultX = density.est$resultX,
+    xclass = xclass, gridx = density.est$gridx,
+    classes = classes, burnin = burnin,
+    samples = samples, Point_estimate.run = Indicators.run,
+    oecd = oecd, weights = weights, upper = upper
+  )
 
   class(results) <- "kdeAlgo"
-return(results)
+  return(results)
 }

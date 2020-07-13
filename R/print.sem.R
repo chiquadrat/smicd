@@ -7,36 +7,48 @@
 #' @export
 #' @return NULL
 
-print.sem <- function(x,...){
+print.sem <- function(x, ...) {
   coefficients <- NULL
   cat("Call:\n")
   print(x$call)
   cat("\n")
   cat("Coefficients:\n")
   if (all(inherits(x, which = TRUE, c("sem", "lm")))) {
-    if(is.null(x$se)) {
+    if (is.null(x$se)) {
       coefficients <- cbind(x$coef)
-      dimnames(coefficients) <- list(names(x$coef),
-                                         c("Estimate"))
+      dimnames(coefficients) <- list(
+        names(x$coef),
+        c("Estimate")
+      )
       print(coefficients)
     } else if (!is.null(x$se)) {
       coefficients <- cbind(x$coef, x$se, x$ci)
-      dimnames(coefficients) <- list(names(x$coef),
-                                         c("Estimate", "Std. Error",
-                                           "Lower", "Upper"))
+      dimnames(coefficients) <- list(
+        names(x$coef),
+        c(
+          "Estimate", "Std. Error",
+          "Lower", "Upper"
+        )
+      )
       print(coefficients)
     }
   } else if (all(inherits(x, which = TRUE, c("sem", "lme")))) {
-    if(is.null(x$se)) {
+    if (is.null(x$se)) {
       coefficients <- cbind(x$coef)
-      dimnames(coefficients) <- list(names(x$coef),
-                                         c("Estimate"))
+      dimnames(coefficients) <- list(
+        names(x$coef),
+        c("Estimate")
+      )
       print(coefficients)
     } else if (!is.null(x$se)) {
       coefficients <- cbind(x$coef, x$se, x$ci)
-      dimnames(coefficients) <- list(names(x$coef),
-                                         c("Estimate", "Std. Error",
-                                           "Lower", "Upper"))
+      dimnames(coefficients) <- list(
+        names(x$coef),
+        c(
+          "Estimate", "Std. Error",
+          "Lower", "Upper"
+        )
+      )
       print(coefficients)
     }
   }

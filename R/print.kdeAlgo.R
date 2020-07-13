@@ -7,7 +7,7 @@
 #' @export
 #' @return NULL
 
-print.kdeAlgo <- function(x,...){
+print.kdeAlgo <- function(x, ...) {
   cat("Value:\n")
   print(round(x$Point_estimate, digits = 3))
   cat("\n")

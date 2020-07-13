@@ -5,7 +5,7 @@
 \alias{Exam}
 \title{Exam scores from inner London}
 \format{
-A data frame with 4059 observations on the following 10 variables:
+A data frame with 4059 observations with the following 10 variables:
 \describe{
 \item{school}{School ID - a factor.}
 \item{examsc}{Exam score.}

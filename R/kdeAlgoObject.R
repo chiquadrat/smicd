@@ -42,10 +42,9 @@
 #' \item{\code{upper}}{if the upper bound of the upper interval is \code{Inf} e.g.
 #' \code{(15000,Inf)}, then \code{Inf} is replaced by \code{15000*upper}}
 #' @references
-#' Walter, P., Weimer, K. (2018). Estimating Poverty and Inequality Indicators
-#' using Interval Censored Income Data from the German Microcensus.
-#' FU-Berlin School of Business & Economics, Discussion
-#' Paper. \cr \cr
+#' Walter, P. (2019). A Selection of Statistical Methods for Interval-Censored
+#' Data with Applications to the German Microcensus, PhD thesis,
+#' Freie Universitaet Berlin\cr \cr
 #' Groß, M., U. Rendtel, T. Schmid, S. Schmon, and N. Tzavidis (2017).
 #' Estimating the density of ethnic minorities and aged people in Berlin: Multivariate
 #' Kernel Density Estimation applied to sensitive georeferenced administrative data

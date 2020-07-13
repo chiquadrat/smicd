@@ -1,3 +1,7 @@
+# smicd 1.1.1
+
+* Replaced weighted.quantile() from spatstat package with wtd.quantile() from Hmisc package
+
 # smicd 1.1.0
 
 * Added new convergence plots for objects of class `kdeAlgo` and `sem`

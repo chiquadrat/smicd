@@ -1,7 +1,7 @@
 Package: smicd
 Type: Package
 Title: Statistical Methods for Interval Censored Data
-Version: 1.1.0
+Version: 1.1.1
 Author: Paul Walter
 Maintainer: Paul Walter <paul.walter@fu-berlin.de>
 Description: Functions that provide statistical methods for interval censored (grouped) data. The package supports the estimation of linear and linear mixed regression models with interval censored dependent variables. Parameter estimates are obtained by a stochastic expectation maximization algorithm. Furthermore, the package enables the direct (without covariates) estimation of statistical indicators from interval censored data via an iterative kernel density algorithm. Survey and Organisation for Economic Co-operation and Development (OECD) weights can be included into the direct estimation (see, Walter, P. (2019) <doi:10.17169/refubium-1621>).
@@ -12,16 +12,16 @@ Suggests:
  knitr,
     rmarkdown,
     mlmRev,
-    Kernelheaping,
-    R.rsp
-RoxygenNote: 7.1.0
+    R.rsp,
+    Kernelheaping
+RoxygenNote: 7.1.1
 Imports: ineq,
     truncnorm,
     lme4,
     MuMIn,
     formula.tools,
     mvtnorm,
-    spatstat,
+    Hmisc,
     laeken,
     weights,
     graphics

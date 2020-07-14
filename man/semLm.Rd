@@ -82,31 +82,35 @@ pseudo samples of each iteration step of the SEM-algorithm.
 \dontrun{
 # Load and prepare data
 data <- Exam
-classes <- c(1,1.5,2.5,3.5,4.5,5.5,6.5,7.7,8.5, Inf)
-data$examsc.class<- cut(data$examsc, classes)
+classes <- c(1, 1.5, 2.5, 3.5, 4.5, 5.5, 6.5, 7.7, 8.5, Inf)
+data$examsc.class <- cut(data$examsc, classes)
 
 # Run model with default settings
-model <- semLm(formula = examsc.class ~ standLRT + schavg, data = data,
-classes = classes)
+model <- semLm(
+  formula = examsc.class ~ standLRT + schavg, data = data,
+  classes = classes
+)
 summary(model)
-} \dontshow{
+}
+\dontshow{
 # Load and prepare data
 data <- Exam
-classes <- c(1,1.5,2.5,3.5,4.5,5.5,6.5,7.7,8.5, Inf)
-data$examsc.class<- cut(data$examsc, classes)
+classes <- c(1, 1.5, 2.5, 3.5, 4.5, 5.5, 6.5, 7.7, 8.5, Inf)
+data$examsc.class <- cut(data$examsc, classes)
 
 # Run model with default settings
-model <- semLm(formula = examsc.class ~ standLRT + schavg, data = data,
-classes = classes, burnin = 4, samples = 10)
+model <- semLm(
+  formula = examsc.class ~ standLRT + schavg, data = data,
+  classes = classes, burnin = 4, samples = 10
+)
 summary(model)
 }
+
 }
 \references{
-Walter, P., Gross, M., Schmid, T. and Tzavidis, N. (2017). Estimation of
-Linear and Non-Linear Indicators
-using Interval Censored Income Data. FU-Berlin School of Business & Economics,
-Discussion
-Paper.
+Walter, P. (2019). A Selection of Statistical Methods for Interval-Censored
+Data with Applications to the German Microcensus, PhD thesis,
+Freie Universitaet Berlin
 }
 \seealso{
 \code{\link[stats]{lm}}, \code{\link{print.sem}},

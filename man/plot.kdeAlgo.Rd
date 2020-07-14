@@ -18,10 +18,12 @@ convergence plots are plotted, e.g. \code{c("mean", "gini")}}
 Convergence and density plots.
 }
 \description{
-Plots the estimtated density of the interval censored variable.
+Plots the estimated density of the interval censored variable.
 Also, convergence plots are given for all estimated statistical indicators.
-The estimated indicator is plotted against the iteration step of the KDE-algorithm.
-A vertical line indicates the end of the burn-in period.
+The estimated indicator is plotted for each iteration step of the KDE-algorithm.
+Furthermore, the average up to iteration step M is plotted (without the burn-in
+iterations). A vertical line indicates the end of the burn-in period.
+A horizontal line marks the value of the estimated statistical indicator
 }
 \seealso{
 \code{\link{kdeAlgoObject}}, \code{\link{kdeAlgo}}

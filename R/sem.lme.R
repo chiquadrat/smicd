@@ -73,10 +73,6 @@
 #' )
 #' summary(model1)
 #'
-#' # Run model with random intercept + random slope with default settings
-#' model2 <- semLme(formula = examsc.class ~ standLRT + schavg +
-#'   (standLRT | school), data = data, classes = classes)
-#' summary(model2)
 #' }
 #' \dontshow{
 #' # Load and prepare data
@@ -90,6 +86,7 @@
 #'   data = data, classes = classes, burnin = 4, samples = 10
 #' )
 #' summary(model1)
+#'
 #' }
 #'
 semLme <- function(formula, data, classes, burnin = 40, samples = 200, trafo = "None",

@@ -67,7 +67,7 @@ weighted estimation of the statistical indicators}
 An object of class "kdeAlgo" that provides estimates for statistical indicators
 and optionally, corresponding standard error estimates. Generic
 functions such as, \code{\link{print}},
-\code{\link{plot}}, and \code{\link{summary}} have methods that can be used
+and \code{\link{plot}} have methods that can be used
 to obtain further information. See \code{\link{kdeAlgoObject}} for a description
 of components of objects of class "kdeAlgo".
 }
@@ -85,38 +85,44 @@ pseudo samples for each iteration step of the KDE-algorithm.
 \examples{
 \dontrun{
 # Generate data
-x=rlnorm(500, meanlog = 8, sdlog = 1)
-classes <- c(0,500,1000,1500,2000,2500,3000,4000,5000, 6000,8000,10000, 15000,Inf)
-xclass <- cut(x,breaks=classes)
-weights <- abs(rnorm(500,0,1))
-oecd <- rep(seq(1,6.9,0.3),25)
+x <- rlnorm(500, meanlog = 8, sdlog = 1)
+classes <- c(0, 500, 1000, 1500, 2000, 2500, 3000, 4000, 5000, 6000, 8000, 10000, 15000, Inf)
+xclass <- cut(x, breaks = classes)
+weights <- abs(rnorm(500, 0, 1))
+oecd <- rep(seq(1, 6.9, 0.3), 25)
 
 # Estimate statistical indicators with default settings
 Indicator <- kdeAlgo(xclass = xclass, classes = classes)
 
 # Include custom indicators
-Indicator_custom <- kdeAlgo(xclass = xclass, classes = classes,
-custom_indicator = list(quant5 = function(y, threshold)
-{quantile(y, probs = 0.05)}))
+Indicator_custom <- kdeAlgo(
+  xclass = xclass, classes = classes,
+  custom_indicator = list(quant5 = function(y, threshold) {
+    quantile(y, probs = 0.05)
+  })
+)
 
 # Indclude survey and oecd weights
-Indicator_weights <- kdeAlgo(xclass = xclass, classes = classes,
-weights = weights, oecd = oecd)
-} \dontshow{
+Indicator_weights <- kdeAlgo(
+  xclass = xclass, classes = classes,
+  weights = weights, oecd = oecd
+)
+}
+\dontshow{
 # Generate data
-x=rlnorm(500, meanlog = 8, sdlog = 1)
-classes <- c(0,500,1000,1500,2000,2500,3000,4000,5000, 6000,8000,10000, 15000,Inf)
-xclass <- cut(x,breaks=classes)
+x <- rlnorm(500, meanlog = 8, sdlog = 1)
+classes <- c(0, 500, 1000, 1500, 2000, 2500, 3000, 4000, 5000, 6000, 8000, 10000, 15000, Inf)
+xclass <- cut(x, breaks = classes)
 
 # Estimate statistical indicators
 Indicator <- kdeAlgo(xclass = xclass, classes = classes, burnin = 10, samples = 40)
 }
+
 }
 \references{
-Walter, P., Weimer, K. (2018). Estimating Poverty and Inequality Indicators
-using Interval Censored Income Data from the German Microcensus.
-FU-Berlin School of Business & Economics, Discussion
-Paper. \cr \cr
+Walter, P. (2019). A Selection of Statistical Methods for Interval-Censored
+Data with Applications to the German Microcensus, PhD thesis,
+Freie Universitaet Berlin\cr \cr
 Groß, M., U. Rendtel, T. Schmid, S. Schmon, and N. Tzavidis (2017).
 Estimating the density of ethnic minorities and aged people in Berlin:
 Multivariate

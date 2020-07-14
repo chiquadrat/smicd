@@ -38,7 +38,7 @@ An overview of all currently provided functions can be requested by
 \references{
 Walter, P. (2019). A Selection of Statistical Methods for Interval-Censored
 Data with Applications to the German Microcensus, PhD thesis,
-Freie Universitaet Berlin <doi:10.17169/refubium-1621> \cr \cr
+Freie Universitaet Berlin\cr \cr
 Gross, M., U. Rendtel, T. Schmid, S. Schmon, and N. Tzavidis (2017).
 Estimating the density of ethnic minorities and aged people in Berlin: Multivariate
 Kernel Density Estimation applied to sensitive georeferenced administrative data

@@ -22,20 +22,20 @@ the linear or linear mixed regression model. If the Box-Cox transformation
 is used
 for the transformation of the dependent variable, a convergence plot
 of the transformation parameter lambda is also available.
-In each of the convergence plots, the estimated parameter is plotted against
-the iteration step of the SEM-algorithm.
-A vertical line indicates the end of the burn-in period. Furthermore, the
-estimated density of the simulated dependent variable from the last iteration
-step
-is plotted with a histogram of the interval censored true dependent variable
-in the back.
+In each of the convergence plots, the estimated parameter is plotted for
+each iteration step of the SEM-algorithm.
+Furthermore, the average up to iteration step M is plotted (without the burn-in
+iterations).
+A vertical line indicates the end of the burn-in period.
+A horizontal line marks the value of the estimated statistical indicator
+Furthermore, the estimated density of the simulated dependent variable from
+the last iteration step is plotted with a histogram of the interval censored
+true dependent variable in the back.
 }
 \references{
-Walter, P., Gross, M., Schmid, T. and Tzavidis, N. (2017). Estimation of
-Linear and Non-Linear Indicators
-using Interval Censored Income Data. School of Business & Economics,
-Discussion
-Paper.
+Walter, P. (2019). A Selection of Statistical Methods for Interval-Censored
+Data with Applications to the German Microcensus, PhD thesis,
+Freie Universitaet Berlin
 }
 \seealso{
 \code{\link{semObject}}, \code{\link{semLm}}, \code{\link{semLme}}

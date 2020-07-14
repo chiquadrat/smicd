@@ -8,10 +8,11 @@
 #' and random-effects part of the model, with the response on the left of a ~ operator
 #' and the terms, separated by + operators, on the right. Random-effects terms are
 #' distinguished by vertical bars (|) separating expressions for design matrices from
-#' grouping factors, as in \code{\link[lme4]{lmer}}. Note: Only random intercept
-#' and random slope models are implemented at that point (e.g. \code{y ~ x + (1|
+#' grouping factors, as in \code{\link[lme4]{lmer}}. Note: Only models with a
+#' maximum of one random intercept
+#' and one random slope are implemented at this point (e.g. \code{y ~ x + (1|
 #' ID)}, or \code{y ~ x + (x|ID)}). The
-#' dependent variable is measuread as interval censored values; factor with
+#' dependent variable is measured as interval censored values; factor with
 #' ordered factor values
 #' @param data a data frame containing the variables of the model
 #' @param classes numeric vector of classes; \code{-Inf} as lower interval bound and
@@ -46,10 +47,9 @@
 #' interval censored dependent variable. The object \code{pseudo.y} returns the
 #' pseudo samples of each iteration step of the SEM-algorithm.
 #' @references
-#' Walter, P., Gross, M., Schmid, T. and Tzavidis, N. (2017). Estimation of
-#' Linear and Non-Linear Indicators
-#' using Interval Censored Income Data. FU-Berlin School of Business & Economics,
-#' Discussion Paper.
+#' Walter, P. (2019). A Selection of Statistical Methods for Interval-Censored
+#' Data with Applications to the German Microcensus, PhD thesis,
+#' Freie Universitaet Berlin
 #' @seealso \code{\link[lme4]{lmer}}, \code{\link{print.sem}},
 #' \code{\link{plot.sem}}, \code{\link{summary.sem}}
 #' @export
@@ -63,95 +63,105 @@
 #' \dontrun{
 #' # Load and prepare data
 #' data <- Exam
-#' classes <- c(1,1.5,2.5,3.5,4.5,5.5,6.5,7.7,8.5, Inf)
-#' data$examsc.class<- cut(data$examsc, classes)
+#' classes <- c(1, 1.5, 2.5, 3.5, 4.5, 5.5, 6.5, 7.7, 8.5, Inf)
+#' data$examsc.class <- cut(data$examsc, classes)
 #'
 #' # Run model with random intercept and default settings
-#' model1 <- semLme(formula = examsc.class ~ standLRT + schavg + (1|school),
-#' data = data, classes = classes)
+#' model1 <- semLme(
+#'   formula = examsc.class ~ standLRT + schavg + (1 | school),
+#'   data = data, classes = classes
+#' )
 #' summary(model1)
 #'
 #' # Run model with random intercept + random slope with default settings
 #' model2 <- semLme(formula = examsc.class ~ standLRT + schavg +
-#' (standLRT|school), data = data, classes = classes)
+#'   (standLRT | school), data = data, classes = classes)
 #' summary(model2)
-#' }\dontshow{
+#' }
+#' \dontshow{
 #' # Load and prepare data
 #' data <- Exam
-#' classes <- c(1,1.5,2.5,3.5,4.5,5.5,6.5,7.7,8.5, Inf)
-#' data$examsc.class<- cut(data$examsc, classes)
+#' classes <- c(1, 1.5, 2.5, 3.5, 4.5, 5.5, 6.5, 7.7, 8.5, Inf)
+#' data$examsc.class <- cut(data$examsc, classes)
 #'
-#' #Run model with random intercept and default settings
-#' model1 <- semLme(formula = examsc.class ~ standLRT + schavg + (1|school),
-#' data = data, classes = classes, burnin = 4, samples = 10)
-#' summary(model1)}
-
+#' # Run model with random intercept and default settings
+#' model1 <- semLme(
+#'   formula = examsc.class ~ standLRT + schavg + (1 | school),
+#'   data = data, classes = classes, burnin = 4, samples = 10
+#' )
+#' summary(model1)
+#' }
+#'
 semLme <- function(formula, data, classes, burnin = 40, samples = 200, trafo = "None",
-                    adjust = 2, bootstrap.se = FALSE, b = 100) {
-
+                   adjust = 2, bootstrap.se = FALSE, b = 100) {
   call <- match.call()
-  o.classes = classes
-  o.data = data
-  o.formula = formula
+  o.classes <- classes
+  o.data <- data
+  o.formula <- formula
   lambda <- result_lambda <- b.lambda <- m.lambda <- se <- ci <- NULL
 
-  if (trafo=="log"){classes <- log.est(y = classes)}
-  if (trafo=="bc") {suppressWarnings(lambda.est <-
-                                       lambda.lme.est(formula = formula,
-                                                      data = data,
-                                                      classes = classes,
-                                                      burnin = burnin,
-                                                      samples = samples,
-                                                      adjust = adjust))
+  if (trafo == "log") {
+    classes <- log.est(y = classes)
+  }
+  if (trafo == "bc") {
+    suppressWarnings(lambda.est <-
+      lambda.lme.est(
+        formula = formula,
+        data = data,
+        classes = classes,
+        burnin = burnin,
+        samples = samples,
+        adjust = adjust
+      ))
 
-  lambda <- lambda.est$lambda
-  result_lambda <- lambda.est$it.lambda
-  b.lambda <- lambda.est$b.lambda
-  m.lambda <- lambda.est$m.lambda
+    lambda <- lambda.est$lambda
+    result_lambda <- lambda.est$it.lambda
+    b.lambda <- lambda.est$b.lambda
+    m.lambda <- lambda.est$m.lambda
 
-  BoxCoxClasses <- boxcox.lme.est(dat=classes,lambda = lambda,  inverse=FALSE)
-  classes <- BoxCoxClasses[[1]]
+    BoxCoxClasses <- boxcox.lme.est(dat = classes, lambda = lambda, inverse = FALSE)
+    classes <- BoxCoxClasses[[1]]
   }
 
   data <- midpoints.est(formula = formula, data = data, classes = classes)
 
-  formula <- as.formula(gsub(".*~","pseudoy~",formula))
+  formula <- as.formula(gsub(".*~", "pseudoy~", formula))
 
-  regclass <- lmer(formula,data=data)
+  regclass <- lmer(formula, data = data)
   resulty <- matrix(ncol = c(burnin + samples), nrow = nrow(data))
   resultcoef <- matrix(ncol = c(burnin + samples), nrow = length(regclass@beta))
   result_ranef <- vector("list", burnin + samples)
-  result_sigmae<-vector(mode = "numeric", length = burnin+samples)
-  result_r2c<-vector(mode = "numeric", length = burnin+samples)
-  result_r2m<-vector(mode = "numeric", length = burnin+samples)
-  result_icc <- vector(mode = "numeric", length = burnin+samples)
-  VaCovMa <- vector("list", burnin+samples)
+  result_sigmae <- vector(mode = "numeric", length = burnin + samples)
+  result_r2c <- vector(mode = "numeric", length = burnin + samples)
+  result_r2m <- vector(mode = "numeric", length = burnin + samples)
+  result_icc <- vector(mode = "numeric", length = burnin + samples)
+  VaCovMa <- vector("list", burnin + samples)
 
   for (j in 1:(burnin + samples)) {
-    data$predict <- predict(regclass,data)
+    data$predict <- predict(regclass, data)
     sigmahat <- sigma(regclass)
     for (i in 1:(length(classes) - 1)) {
-      if (nrow(data[data$yclassl==i,])!=0) {
-        mean <- data$predict[data$yclassl==i]
-        pseudoy <- rtruncnorm(length(mean), a=classes[i], b=classes[i+1], mean=mean, sd=sigmahat )
-        data$pseudoy[data$yclassl==i] <- pseudoy
+      if (nrow(data[data$yclassl == i, ]) != 0) {
+        mean <- data$predict[data$yclassl == i]
+        pseudoy <- rtruncnorm(length(mean), a = classes[i], b = classes[i + 1], mean = mean, sd = sigmahat)
+        data$pseudoy[data$yclassl == i] <- pseudoy
       }
     }
-    regclass=lmer(formula,data=data )
-    resultcoef[,j] <- regclass@beta
+    regclass <- lmer(formula, data = data)
+    resultcoef[, j] <- regclass@beta
     result_ranef[[j]] <- as.matrix(ranef(regclass)[[1]])
-    result_sigmae[j]<- sigmahat
+    result_sigmae[j] <- sigmahat
     r_squared <- r.squaredGLMM(regclass)
-          if (is.matrix(r_squared)) {
-            result_r2m[j] <- unname(r_squared[1, 1])
-            result_r2c[j] <- unname(r_squared[1, 2])
-            } else {
-              result_r2m[j] <- unname(r_squared[1])
-              result_r2c[j] <- unname(r_squared[2])
-            }
+    if (is.matrix(r_squared)) {
+      result_r2m[j] <- unname(r_squared[1, 1])
+      result_r2c[j] <- unname(r_squared[1, 2])
+    } else {
+      result_r2m[j] <- unname(r_squared[1])
+      result_r2c[j] <- unname(r_squared[2])
+    }
     result_icc[j] <- icc.est(model = regclass)
-    resulty[,j] <- data$pseudoy
-    VaCovMa[[j]] <- as.matrix(unclass(VarCorr(regclass))[[1]][1:ncol(ranef(regclass)[[1]]),])
+    resulty[, j] <- data$pseudoy
+    VaCovMa[[j]] <- as.matrix(unclass(VarCorr(regclass))[[1]][1:ncol(ranef(regclass)[[1]]), ])
   }
 
   parameter.ma <- list(ranef = result_ranef, VaCov = VaCovMa)
@@ -162,46 +172,50 @@ semLme <- function(formula, data, classes, burnin = 40, samples = 200, trafo = "
 
   colnames(parameter.final.ma$ranef) <- colnames(result_ranef[[1]])
 
-  parameter <- list(coef = resultcoef,
-                    sigmae = result_sigmae,
-                    r2m = result_r2m, r2c = result_r2c,
-                    icc = result_icc)
+  parameter <- list(
+    coef = resultcoef,
+    sigmae = result_sigmae,
+    r2m = result_r2m, r2c = result_r2c,
+    icc = result_icc
+  )
   parameter.final <- parameters.est(parameter = parameter, burnin = burnin)
 
   names(parameter.final$coef) <- rownames(summary(regclass)$coefficients)
 
-  if (bootstrap.se == TRUE) {result_se <- standardErrorLME.est(formula = o.formula,
-                                                               data = o.data,
-                                                               classes = o.classes,
-                                                               burnin = burnin,
-                                                               samples = samples,
-                                                               trafo = trafo,
-                                                               adjust = adjust,
-                                                               b = b,
-                                                               coef = parameter.final$coef,
-                                                               sigmae = parameter.final$sigmae,
-                                                               VaCov = parameter.final.ma$VaCov,
-                                                               nameRI = names(ranef(regclass)),
-                                                               nameRS = names(ranef(regclass)[[1]])[2],
-                                                               regmodell = regclass,
-                                                               lambda = m.lambda)
+  if (bootstrap.se == TRUE) {
+    result_se <- standardErrorLME.est(
+      formula = o.formula,
+      data = o.data,
+      classes = o.classes,
+      burnin = burnin,
+      samples = samples,
+      trafo = trafo,
+      adjust = adjust,
+      b = b,
+      coef = parameter.final$coef,
+      sigmae = parameter.final$sigmae,
+      VaCov = parameter.final.ma$VaCov,
+      nameRI = names(ranef(regclass)),
+      nameRS = names(ranef(regclass)[[1]])[2],
+      regmodell = regclass,
+      lambda = m.lambda
+    )
 
-  se <- result_se$se
-  ci <- result_se$ci
-  rownames(ci) <- names(parameter.final$coef)}
+    se <- result_se$se
+    ci <- result_se$ci
+    rownames(ci) <- names(parameter.final$coef)
+  }
 
-  est <- list(pseudo.y = resulty, coef = parameter.final$coef, ranef = parameter.final.ma$ranef,
-              sigmae = parameter.final$sigmae, VaCov = parameter.final.ma$VaCov,
-              se = se, ci = ci, lambda = lambda, bootstraps = b, r2m = parameter.final$r2m,
-              r2c = parameter.final$r2c, icc = parameter.final$icc, formula = o.formula,
-              transformation = trafo, n.classes = length(classes)-1, conv.coef = resultcoef,
-              conv.sigmae = result_sigmae, conv.lambda = result_lambda, conv.VaCov = VaCovMa,
-              b.lambda = b.lambda, m.lambda = m.lambda, burnin = burnin, samples = samples,
-              classes = o.classes, original.y = data$y, call = call)
+  est <- list(
+    pseudo.y = resulty, coef = parameter.final$coef, ranef = parameter.final.ma$ranef,
+    sigmae = parameter.final$sigmae, VaCov = parameter.final.ma$VaCov,
+    se = se, ci = ci, lambda = lambda, bootstraps = b, r2m = parameter.final$r2m,
+    r2c = parameter.final$r2c, icc = parameter.final$icc, formula = o.formula,
+    transformation = trafo, n.classes = length(classes) - 1, conv.coef = resultcoef,
+    conv.sigmae = result_sigmae, conv.lambda = result_lambda, conv.VaCov = VaCovMa,
+    b.lambda = b.lambda, m.lambda = m.lambda, burnin = burnin, samples = samples,
+    classes = o.classes, original.y = data$y, call = call
+  )
   class(est) <- c("sem", "lme")
   return(est)
 }
-
-
-
-

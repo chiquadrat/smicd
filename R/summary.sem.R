@@ -11,13 +11,14 @@
 #' \item{coefficients}{a table that returns the estimation parameters and the
 #' standard errors and confidence intervals in case that the standard erros are
 #' estimated.}
+#' \item{standard errors}{bootstraped standard errors}
+#' \item{confidence intervals}{bootstraped confidence intervals}
 #' \item{two R2 measures}{a multiple and adjusted R-squared in case of an
 #' object of class \code{"sem","lm"} and a marginal and conditional R-squared in
 #' case of an object of class \code{"sem","lme"}}
 
 
-summary.sem <- function(object,...){
-
+summary.sem <- function(object, ...) {
   ans <- NULL
   ans$call <- object$call
   ans$nclasses <- object$n.classes
@@ -32,28 +33,38 @@ summary.sem <- function(object,...){
   if (all(inherits(object, which = TRUE, c("sem", "lm")))) {
     ans$multipR <- round(object$r2, 4)
     ans$adjR <- round(object$adj.r2, 4)
-    if(is.null(object$se)) {
+    if (is.null(object$se)) {
       ans$coefficients <- cbind(object$coef)
-      dimnames(ans$coefficients) <- list(names(object$coef),
-                                         c("Estimate"))
+      dimnames(ans$coefficients) <- list(
+        names(object$coef),
+        c("Estimate")
+      )
     } else if (!is.null(object$se)) {
       ans$coefficients <- cbind(object$coef, object$se, object$ci)
-      dimnames(ans$coefficients) <- list(names(object$coef),
-                                         c("Estimate", "Std. Error", "Lower 95%-level", "Upper 95%-level"))
+      dimnames(ans$coefficients) <- list(
+        names(object$coef),
+        c("Estimate", "Std. Error", "Lower 95%-level", "Upper 95%-level")
+      )
     }
   } else if (all(inherits(object, which = TRUE, c("sem", "lme")))) {
     ans$marginalR2 <- round(object$r2m, 4)
     ans$conditionalR2 <- round(object$r2c, 4)
-    if(dim(object$VaCov)[1] == 1) {
+    if (dim(object$VaCov)[1] == 1) {
       randomIntercept <- strsplit(as.character(object$formula[[3]][3]), "\\|")[[1]][2]
       randomIntercept <- strsplit(randomIntercept, ")")
       randomIntercept <- trimws(randomIntercept, "l")
-      ans$random <- data.frame(Groups = c(randomIntercept, "Residual"),
-                               Name = c("(Intercept)", ""),
-                               Variance = c(as.numeric(object$VaCov),
-                                            as.numeric(object$sigmae)^2),
-                               Std.Dev. = c(sqrt(as.numeric(object$VaCov)),
-                                            object$sigmae))
+      ans$random <- data.frame(
+        Groups = c(randomIntercept, "Residual"),
+        Name = c("(Intercept)", ""),
+        Variance = c(
+          as.numeric(object$VaCov),
+          as.numeric(object$sigmae)^2
+        ),
+        Std.Dev. = c(
+          sqrt(as.numeric(object$VaCov)),
+          object$sigmae
+        )
+      )
       rownames(ans$random) <- c()
     } else if (dim(object$VaCov)[1] == 2) {
       randomIntercept <- strsplit(as.character(object$formula[[3]][3]), "\\|")[[1]][2]
@@ -61,27 +72,39 @@ summary.sem <- function(object,...){
       randomIntercept <- trimws(randomIntercept, "l")
 
 
-      ans$random <- data.frame(Groups = c(randomIntercept,
-                                          rownames(object$VaCov)[2],
-                                          "Residual"),
-                               Name = c("(Intercept)", "", ""),
-                               Variance = c(as.numeric(object$VaCov[1,1]),
-                                            as.numeric(object$VaCov[2,2]),
-                                            as.numeric(object$sigmae)^2),
-                              Std.Dev. = c(sqrt(as.numeric(as.numeric(object$VaCov[1,1]))),
-                                            sqrt(as.numeric(as.numeric(object$VaCov[2,2]))),
-                                            object$sigmae))
+      ans$random <- data.frame(
+        Groups = c(
+          randomIntercept,
+          rownames(object$VaCov)[2],
+          "Residual"
+        ),
+        Name = c("(Intercept)", "", ""),
+        Variance = c(
+          as.numeric(object$VaCov[1, 1]),
+          as.numeric(object$VaCov[2, 2]),
+          as.numeric(object$sigmae)^2
+        ),
+        Std.Dev. = c(
+          sqrt(as.numeric(as.numeric(object$VaCov[1, 1]))),
+          sqrt(as.numeric(as.numeric(object$VaCov[2, 2]))),
+          object$sigmae
+        )
+      )
 
       rownames(ans$random) <- c()
     }
-    if(is.null(object$se)) {
+    if (is.null(object$se)) {
       ans$coefficients <- cbind(object$coef)
-      dimnames(ans$coefficients) <- list(names(object$coef),
-                                         c("Estimate"))
+      dimnames(ans$coefficients) <- list(
+        names(object$coef),
+        c("Estimate")
+      )
     } else if (!is.null(object$se)) {
       ans$coefficients <- cbind(object$coef, object$se, object$ci)
-      dimnames(ans$coefficients) <- list(names(object$coef),
-                                         c("Estimate", "Std. Error", "Lower 95%-level", "Upper 95%-level"))
+      dimnames(ans$coefficients) <- list(
+        names(object$coef),
+        c("Estimate", "Std. Error", "Lower 95%-level", "Upper 95%-level")
+      )
     }
   }
 
@@ -112,20 +135,20 @@ print.summary.sem <- function(x, ...) {
   cat("Fixed effects:\n")
   print(x$coefficients)
   cat("\n")
-  if(!is.null(x$multipR)) {
-    cat("Multiple R-squared: ",	x$multipR, "Adjusted R-squared: " ,x$adjR)
+  if (!is.null(x$multipR)) {
+    cat("Multiple R-squared: ", x$multipR, "Adjusted R-squared: ", x$adjR)
   } else if (!is.null(x$marginalR2)) {
-    cat("Marginal R-squared: ",	x$marginalR2, "Conditional R-squared: " ,x$conditionalR2)
+    cat("Marginal R-squared: ", x$marginalR2, "Conditional R-squared: ", x$conditionalR2)
   }
   cat("\n")
   if (!is.null(x$trafo)) {
     cat("Lambda of the Box-Cox transformation: ", x$lambda)
   }
   cat("\n")
-  #cat("\n")
-  #cat("Number of intervals:\n")
-  cat(paste0("Variable ", x$formula[2], " is divided into ",
-             x$nclasses, " intervals.\n"))
-
-  }
-
+  # cat("\n")
+  # cat("Number of intervals:\n")
+  cat(paste0(
+    "Variable ", x$formula[2], " is divided into ",
+    x$nclasses, " intervals.\n"
+  ))
+}

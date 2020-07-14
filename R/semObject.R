@@ -48,9 +48,9 @@
 #' an interval censored scale}
 #' \item{\code{call}}{the function call}
 #' @references
-#' Walter, P., Gross, M., Schmid, T. and Tzavidis, N. (2017). Estimation of Linear and Non-Linear Indicators
-#' using Interval Censored Income Data. School of Business & Economics, Discussion
-#' Paper.
+#' Walter, P. (2019). A Selection of Statistical Methods for Interval-Censored
+#' Data with Applications to the German Microcensus, PhD thesis,
+#' Freie Universitaet Berlin
 #' @seealso \code{\link{smicd}},  \code{\link[stats]{lm}}, \code{\link[lme4]{lmer}},
 #' \code{\link[MuMIn]{r.squaredGLMM}}
 #' @name semObject

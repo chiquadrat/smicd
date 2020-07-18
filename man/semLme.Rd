@@ -2,7 +2,7 @@
 % Please edit documentation in R/sem.lme.R
 \name{semLme}
 \alias{semLme}
-\title{Linear Mixed Regression with Interval Censored Dependent Variable}
+\title{Linear Mixed Regression with Interval-Censored Dependent Variable}
 \usage{
 semLme(
   formula,
@@ -25,7 +25,7 @@ grouping factors, as in \code{\link[lme4]{lmer}}. Note: Only models with a
 maximum of one random intercept
 and one random slope are implemented at this point (e.g. \code{y ~ x + (1|
 ID)}, or \code{y ~ x + (x|ID)}). The
-dependent variable is measured as interval censored values; factor with
+dependent variable is measured as interval-censored values; factor with
 ordered factor values}
 
 \item{data}{a data frame containing the variables of the model}
@@ -60,7 +60,7 @@ are estimated}
 }
 \value{
 An object of class "sem" that provides parameter estimated for linear
-regression models with interval censored dependent variable. Generic
+regression models with interval-censored dependent variable. Generic
 functions such as, \code{\link{print}},
 \code{\link{plot}}, and \code{\link{summary}} have methods that can be used
 to obtain further information. See \code{\link{semObject}} for descriptions
@@ -70,12 +70,12 @@ of objects of class "sem".
 \description{
 This function estimates the linear mixed regression model when
 the dependent
-variable is interval censored. The estimation of the standard errors is
+variable is interval-censored. The estimation of the standard errors is
 fasciliated by a parametric bootstrap.
 }
 \details{
 The model parameters are estimated using pseudo samples of the
-interval censored dependent variable. The object \code{pseudo.y} returns the
+interval-censored dependent variable. The object \code{pseudo.y} returns the
 pseudo samples of each iteration step of the SEM-algorithm.
 }
 \examples{

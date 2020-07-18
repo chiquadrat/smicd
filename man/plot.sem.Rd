@@ -29,7 +29,7 @@ iterations).
 A vertical line indicates the end of the burn-in period.
 A horizontal line marks the value of the estimated statistical indicator
 Furthermore, the estimated density of the simulated dependent variable from
-the last iteration step is plotted with a histogram of the interval censored
+the last iteration step is plotted with a histogram of the interval-censored
 true dependent variable in the back.
 }
 \references{

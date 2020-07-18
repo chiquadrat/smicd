@@ -2,7 +2,7 @@
 % Please edit documentation in R/sem.lm.R
 \name{semLm}
 \alias{semLm}
-\title{Linear Regression with Interval Censored Dependent Variable}
+\title{Linear Regression with Interval-Censored Dependent Variable}
 \usage{
 semLm(
   formula,
@@ -19,7 +19,7 @@ semLm(
 \arguments{
 \item{formula}{an object of class \code{formula}, as in
 \code{\link[stats]{lm}}. The
-dependent variable is measured as interval censored values; factor with
+dependent variable is measured as interval-censored values; factor with
 ordered factor values}
 
 \item{data}{a data frame containing the variables of the model}
@@ -58,7 +58,7 @@ errors}
 }
 \value{
 An object of class "sem" that provides parameter estimates for linear
-regression models with interval censored dependent variable. Generic
+regression models with interval-censored dependent variable. Generic
 functions such as, \code{\link{print}},
 \code{\link{plot}}, and \code{\link{summary}} have methods that can be used
 to obtain further information.  See \code{\link{semObject}} for a description
@@ -68,14 +68,14 @@ of objects of class "sem".
 \description{
 This function estimates the linear regression model when the
 dependent
-variable is interval censored. The estimation of the standard errors is
+variable is interval-censored. The estimation of the standard errors is
 fasciliated
 by a non-parametric bootstrap.
 }
 \details{
 The model parameters are estimated using pseudo samples as a proxy
  for the
-interval censored dependent variable. The object \code{pseudo.y} returns the
+interval-censored dependent variable. The object \code{pseudo.y} returns the
 pseudo samples of each iteration step of the SEM-algorithm.
 }
 \examples{

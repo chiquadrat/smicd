@@ -2,7 +2,7 @@
 % Please edit documentation in R/kde.algo.R
 \name{kdeAlgo}
 \alias{kdeAlgo}
-\title{Estimation of Statistical Indicators from Interval Censored Data}
+\title{Estimation of Statistical Indicators from Interval-Censored Data}
 \usage{
 kdeAlgo(
   xclass,
@@ -22,7 +22,7 @@ kdeAlgo(
 )
 }
 \arguments{
-\item{xclass}{interval censored values; factor with ordered factor values,
+\item{xclass}{interval-censored values; factor with ordered factor values,
 as in \code{\link[Kernelheaping]{dclass}}}
 
 \item{classes}{numeric vector of classes; Inf as last value is allowed,
@@ -74,12 +74,12 @@ of components of objects of class "kdeAlgo".
 \description{
 The function applies an iterative kernel density
 algorithm for the estimation of a variety of statistical indicators
-(e.g. mean, median, quantiles, gini) from interval censored data. The estimation
+(e.g. mean, median, quantiles, gini) from interval-censored data. The estimation
 of the standard errors is facilitated by a non-parametric bootstrap.
 }
 \details{
 The statistical indicators are estimated using pseudo samples as
-proxy for the interval censored variable. The object \code{resultX} returns the
+proxy for the interval-censored variable. The object \code{resultX} returns the
 pseudo samples for each iteration step of the KDE-algorithm.
 }
 \examples{

@@ -1,8 +1,8 @@
-#' @title Linear Mixed Regression with Interval Censored Dependent Variable
+#' @title Linear Mixed Regression with Interval-Censored Dependent Variable
 #'
 #' @description This function estimates the linear mixed regression model when
 #' the dependent
-#' variable is interval censored. The estimation of the standard errors is
+#' variable is interval-censored. The estimation of the standard errors is
 #' fasciliated by a parametric bootstrap.
 #' @param formula a two-sided linear formula object describing both the fixed-effects
 #' and random-effects part of the model, with the response on the left of a ~ operator
@@ -12,7 +12,7 @@
 #' maximum of one random intercept
 #' and one random slope are implemented at this point (e.g. \code{y ~ x + (1|
 #' ID)}, or \code{y ~ x + (x|ID)}). The
-#' dependent variable is measured as interval censored values; factor with
+#' dependent variable is measured as interval-censored values; factor with
 #' ordered factor values
 #' @param data a data frame containing the variables of the model
 #' @param classes numeric vector of classes; \code{-Inf} as lower interval bound and
@@ -37,14 +37,14 @@
 #'  are estimated
 #' @param b number of bootstrap iterations for the estimation of the standard errors
 #' @return An object of class "sem" that provides parameter estimated for linear
-#' regression models with interval censored dependent variable. Generic
+#' regression models with interval-censored dependent variable. Generic
 #' functions such as, \code{\link{print}},
 #' \code{\link{plot}}, and \code{\link{summary}} have methods that can be used
 #' to obtain further information. See \code{\link{semObject}} for descriptions
 #' of components
 #' of objects of class "sem".
 #' @details The model parameters are estimated using pseudo samples of the
-#' interval censored dependent variable. The object \code{pseudo.y} returns the
+#' interval-censored dependent variable. The object \code{pseudo.y} returns the
 #' pseudo samples of each iteration step of the SEM-algorithm.
 #' @references
 #' Walter, P. (2019). A Selection of Statistical Methods for Interval-Censored

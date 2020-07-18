@@ -1,10 +1,10 @@
-#' @title Estimation of Statistical Indicators from Interval Censored Data
+#' @title Estimation of Statistical Indicators from Interval-Censored Data
 #'
 #' @description The function applies an iterative kernel density
 #' algorithm for the estimation of a variety of statistical indicators
-#' (e.g. mean, median, quantiles, gini) from interval censored data. The estimation
+#' (e.g. mean, median, quantiles, gini) from interval-censored data. The estimation
 #' of the standard errors is facilitated by a non-parametric bootstrap.
-#' @param xclass interval censored values; factor with ordered factor values,
+#' @param xclass interval-censored values; factor with ordered factor values,
 #' as in \code{\link[Kernelheaping]{dclass}}
 #' @param classes numeric vector of classes; Inf as last value is allowed,
 #' as in \code{\link[Kernelheaping]{dclass}}
@@ -38,7 +38,7 @@
 #' to obtain further information. See \code{\link{kdeAlgoObject}} for a description
 #' of components of objects of class "kdeAlgo".
 #' @details The statistical indicators are estimated using pseudo samples as
-#' proxy for the interval censored variable. The object \code{resultX} returns the
+#' proxy for the interval-censored variable. The object \code{resultX} returns the
 #' pseudo samples for each iteration step of the KDE-algorithm.
 #' @references
 #' Walter, P. (2019). A Selection of Statistical Methods for Interval-Censored

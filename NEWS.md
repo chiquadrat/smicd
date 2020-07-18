@@ -1,6 +1,8 @@
 # smicd 1.1.1
 
-* Replaced weighted.quantile() from spatstat package with wtd.quantile() from Hmisc package
+* Replaced weighted.quantile() from spatstat package (removed dependency) with wtd.quantile() from Hmisc package
+* Updated documentation, e.g, references
+* Corrected spelling mistakes in the documentation
 
 # smicd 1.1.0
 

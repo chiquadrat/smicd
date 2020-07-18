@@ -1,6 +1,6 @@
 #' @title Plot Diagnostics for a kdeAlgo Object
 #'
-#' @description Plots the estimated density of the interval censored variable.
+#' @description Plots the estimated density of the interval-censored variable.
 #' Also, convergence plots are given for all estimated statistical indicators.
 #' The estimated indicator is plotted for each iteration step of the KDE-algorithm.
 #' Furthermore, the average up to iteration step M is plotted (without the burn-in

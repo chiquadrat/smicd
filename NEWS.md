@@ -1,3 +1,7 @@
+# smicd 1.1.2
+
+* Corrected spelling mistakes in plot.kde() and plot.sem()
+
 # smicd 1.1.1
 
 * Replaced weighted.quantile() from spatstat package (removed dependency) with wtd.quantile() from Hmisc package

@@ -39,7 +39,7 @@ plot.kdeAlgo <- function(x, indicator = NULL, ...) {
       plot(point,
         xlim = c(0, (x$burnin + x$samples)),
         col = ifelse(point == means[1] - .Machine$double.xmin, "white", "black"),
-        xlab = "Iteration step", ylab = "Average up to iterstion step M"
+        xlab = "Iteration step", ylab = "Average up to iteration step M"
       )
       abline(h = x$Point_estimate[i])
       abline(v = x$burnin)
@@ -67,7 +67,7 @@ plot.kdeAlgo <- function(x, indicator = NULL, ...) {
       plot(point,
         xlim = c(0, (x$burnin + x$samples)),
         col = ifelse(point == means[1] - .Machine$double.xmin, "white", "black"),
-        xlab = "Iteration step", ylab = "Average up to iterstion step M"
+        xlab = "Iteration step", ylab = "Average up to iteration step M"
       )
       abline(h = x$Point_estimate[indicator[i]])
       abline(v = x$burnin)

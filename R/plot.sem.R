@@ -41,7 +41,7 @@ plot.sem <- function(x, ...) {
   plot(point,
     xlim = c(0, (x$burnin + x$samples)),
     col = ifelse(point == means[1] - .Machine$double.xmin, "white", "black"),
-    xlab = "Iteration step", ylab = "Average up to iterstion step M"
+    xlab = "Iteration step", ylab = "Average up to iteration step M"
   )
   abline(h = x$sigmae)
   abline(v = x$burnin)
@@ -69,7 +69,7 @@ plot.sem <- function(x, ...) {
     plot(point,
       xlim = c(0, (x$burnin + x$samples)),
       col = ifelse(point == means[1] - .Machine$double.xmin, "white", "black"),
-      xlab = "Iteration step", ylab = "Average up to iterstion step M"
+      xlab = "Iteration step", ylab = "Average up to iteration step M"
     )
     abline(h = x$coef[i])
     abline(v = x$burnin)
@@ -98,7 +98,7 @@ plot.sem <- function(x, ...) {
     plot(point,
       xlim = c(0, (x$burnin + x$samples)),
       col = ifelse(point == means[1] - .Machine$double.xmin, "white", "black"),
-      xlab = "Iteration step", ylab = "Average up to iterstion step M"
+      xlab = "Iteration step", ylab = "Average up to iteration step M"
     )
     abline(h = x$lambda)
     abline(v = x$burnin)

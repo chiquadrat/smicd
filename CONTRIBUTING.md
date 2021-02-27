@@ -41,7 +41,7 @@ See below if you want to contribute code for your idea as well.
 
 ### Report a bug 🐛
 
-Using smicd and discovered a bug? That's annoying! Don't let others have the same experience and report it as an [issue on GitHub][new_issue] so I can fix it. A good bug report makes it easier for me to do so, so please include:
+Using smicd and discovered a bug? That's annoying! Don't let others have the same experience and report it as an [issue on GitHub][new_issue] so I can fix it. Please label the issue as `bug` this enables me to create a bug tracker. A good bug report makes it easier for me to do so, so please include:
 
 * Your operating system name and version (e.g. Mac OS 10.13.6).
 * Any details about your local setup that might be helpful in troubleshooting.

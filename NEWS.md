@@ -1,3 +1,7 @@
+# smicd 1.1.3
+
+* Update e-mail of maintainer
+
 # smicd 1.1.2
 
 * Corrected spelling mistakes in plot.kde() and plot.sem()

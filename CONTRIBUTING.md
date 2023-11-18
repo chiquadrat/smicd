@@ -11,7 +11,7 @@ The R package smicd is an open source project. I am not directly funded to do so
 [new_issue]: https://github.com/chiquadrat/ICD/issues/new
 [website]: https://cran.r-project.org/web/packages/smicd/smicd.pdf
 [citation]: https://www.r-bloggers.com/2018/08/how-to-cite-packages/
-[email]: mailto:paul.walter@fu-berlin.de
+[email]: mailto:paul.w@gmx.net
 
 
 ## How you can contribute

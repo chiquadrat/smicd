@@ -6,5 +6,5 @@ Functions that provide statistical methods for interval-censored (grouped) data.
 If you would like to report a bug, request new features or contribute, please check out the [Guidlines](https://github.com/chiquadrat/ICD/blob/master/CONTRIBUTING.md).
 
 # Contact
-paul.walter@fu-berlin.de
+paul.w@gmx.net
 

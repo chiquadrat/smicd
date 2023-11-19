@@ -2,7 +2,7 @@
 #
 # Log-transformation
 
-log.est <- function(y) {
+logEst <- function(y) {
   y <- log(y)
   return(y)
 }

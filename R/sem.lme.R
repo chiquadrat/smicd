@@ -98,7 +98,7 @@ semLme <- function(formula, data, classes, burnin = 40, samples = 200, trafo = "
   lambda <- result_lambda <- b.lambda <- m.lambda <- se <- ci <- NULL
 
   if (trafo == "log") {
-    classes <- log.est(y = classes)
+    classes <- logEst(y = classes)
   }
   if (trafo == "bc") {
     suppressWarnings(lambda.est <-

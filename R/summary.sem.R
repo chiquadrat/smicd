@@ -13,9 +13,7 @@
 #' estimated.}
 #' \item{standard errors}{bootstraped standard errors}
 #' \item{confidence intervals}{bootstraped confidence intervals}
-#' \item{two R2 measures}{a multiple and adjusted R-squared in case of an
-#' object of class \code{"sem","lm"} and a marginal and conditional R-squared in
-#' case of an object of class \code{"sem","lme"}}
+#' \item{two R2 measures}{a multiple and adjusted R-squared}
 
 
 summary.sem <- function(object, ...) {

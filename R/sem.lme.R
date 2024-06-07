@@ -56,7 +56,6 @@
 #' @importFrom truncnorm rtruncnorm
 #' @import formula.tools
 #' @importFrom lme4 lmer ranef VarCorr
-#' @importFrom MuMIn r.squaredGLMM
 #' @importFrom mvtnorm rmvnorm
 #' @return NULL
 #' @examples
@@ -91,6 +90,8 @@
 #'
 semLme <- function(formula, data, classes, burnin = 40, samples = 200, trafo = "None",
                    adjust = 2, bootstrap.se = FALSE, b = 100) {
+
+
   call <- match.call()
   o.classes <- classes
   o.data <- data
@@ -148,7 +149,7 @@ semLme <- function(formula, data, classes, burnin = 40, samples = 200, trafo = "
     resultcoef[, j] <- regclass@beta
     result_ranef[[j]] <- as.matrix(ranef(regclass)[[1]])
     result_sigmae[j] <- sigmahat
-    r_squared <- r.squaredGLMM(regclass)
+    r_squared <-NA
     if (is.matrix(r_squared)) {
       result_r2m[j] <- unname(r_squared[1, 1])
       result_r2c[j] <- unname(r_squared[1, 2])

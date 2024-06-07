@@ -20,10 +20,6 @@
 #' \item{\code{bootstraps}}{number of bootstrap iterations for the estimation
 #' of the standard errors}
 #' \item{\code{r2}}{estimated coefficient of determination}
-#' \item{\code{r2m}}{estimated marginal coefficient of determination for
-#' generalized mixed-effect models, as in \code{\link[MuMIn]{r.squaredGLMM}}}
-#' \item{\code{r2c}}{estimated conditional coefficient of determination for
-#' generalized mixed-effect models, as in \code{\link[MuMIn]{r.squaredGLMM}}}
 #' \item{\code{icc}}{estimated interclass correlation coefficient}
 #' \item{\code{adj.r2}}{estimated adjusted coefficient of determination}
 #' \item{\code{formula}}{an object of class \code{formula}, as in \code{\link[stats]{lm}} or
@@ -51,7 +47,6 @@
 #' Walter, P. (2019). A Selection of Statistical Methods for Interval-Censored
 #' Data with Applications to the German Microcensus, PhD thesis,
 #' Freie Universitaet Berlin
-#' @seealso \code{\link{smicd}},  \code{\link[stats]{lm}}, \code{\link[lme4]{lmer}},
-#' \code{\link[MuMIn]{r.squaredGLMM}}
+#' @seealso \code{\link{smicd}},  \code{\link[stats]{lm}}, \code{\link[lme4]{lmer}}
 #' @name semObject
 NULL

@@ -21,9 +21,7 @@ standard errors and confidence intervals in case that the standard erros are
 estimated.}
 \item{standard errors}{bootstraped standard errors}
 \item{confidence intervals}{bootstraped confidence intervals}
-\item{two R2 measures}{a multiple and adjusted R-squared in case of an
-object of class \code{"sem","lm"} and a marginal and conditional R-squared in
-case of an object of class \code{"sem","lme"}}
+\item{two R2 measures}{a multiple and adjusted R-squared}
 }
 \description{
 \code{summary} method for class \code{"sem"}.

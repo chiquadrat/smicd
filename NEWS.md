@@ -1,3 +1,7 @@
+# smicd 1.1.4
+
+* Removal of MuMIn dependency
+
 # smicd 1.1.3
 
 * Update e-mail of maintainer

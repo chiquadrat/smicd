@@ -1,3 +1,7 @@
+# smicd 1.1.5
+
+* Removal of not necessary imports (nlme)
+
 # smicd 1.1.4
 
 * Removal of MuMIn dependency
